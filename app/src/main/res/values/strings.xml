@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">TrabajoPractico</string>
+    <string name="navigation_drawer_open">Abrir Barra</string>
+    <string name="title_bar_default">Title Bar Default</string>
+    <string name="list_title_bar">Shop List</string>
+    <string name="list_screen_btn_buy">Buy</string>
+    <string name="list_screen_btn_add_favourite">Add to favourite</string>
+    <string name="drawer_menu_title">Title</string>
+    <string name="drawer_menu_section_header">Section Header</string>
+    <string name="drawer_menu_shop_list_image">Shop List Image</string>
+    <string name="detail_title_bar">Leather boots</string>
+    <string name="detail_text_field_label">Label</string>
+    <string name="detail_text_field_title_size">Select size</string>
+    <string name="favorite_title_bar">Favourite</string>
+    <string name="profile_title_bar">Profile</string>
+    <string name="bottom_title_product">Product</string>
+    <string name="bottom_title_search">Search</string>
+    <string name="bottom_title_cart">Cart</string>
+    <string name="bottom_title_profile">Profile</string>
+    <string name="topbar_menu_icon">Menu</string>
+    <string name="bottom_title_user">Profile</string>
+    <string name="bottom_title_shop">Shop</string>
+    <string name="bottom_title_home">Home</string>
+
+    <string name="base_url">https://api.api-ninjas.com/v1/quotes</string>
+    <string name="api_key">xx3cfkDq9sg1SrqB0GVvEw==XYpz5Fo2rnsHz1xB</string>
+</resources>
