@@ -9,7 +9,7 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.material3.rememberDrawerState
-import ar.edu.ort.trabajopractico.ui.theme.components.TopBar
+import ar.edu.ort.trabajopractico.components.TopBar
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
@@ -18,8 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import ar.edu.ort.trabajopractico.ui.theme.TrabajoPracticoTheme
-import ar.edu.ort.trabajopractico.ui.theme.components.BottomNavBar
-import ar.edu.ort.trabajopractico.ui.theme.components.AppDrawer
+import ar.edu.ort.trabajopractico.components.BottomNavBar
+import ar.edu.ort.trabajopractico.components.AppDrawer
 import kotlinx.coroutines.launch
 
 

@@ -43,11 +43,18 @@ val Typography = Typography(
         letterSpacing = 0.sp
     ),
     labelSmall = TextStyle(
-        fontFamily = fontFamilyPoppins,
-        fontWeight = FontWeight.Normal,
-        fontSize = 14.sp,
-        lineHeight = 21.sp,
-        letterSpacing = 0.sp
-    )
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Medium,
+        fontSize = 11.sp,
+        lineHeight = 16.sp,
+        letterSpacing = 0.5.sp
+    ),
 
+)
+val buttonLarge = TextStyle(
+    fontFamily = fontFamilyPoppins,
+    fontWeight = FontWeight.Bold,
+    fontSize = 16.sp,
+    lineHeight = 28.8.sp,
+    letterSpacing = 0.sp
 )
