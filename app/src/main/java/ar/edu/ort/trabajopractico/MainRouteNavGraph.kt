@@ -12,8 +12,11 @@ import ar.edu.ort.trabajopractico.navigation.LeafScreen
 import ar.edu.ort.trabajopractico.screens.homepage.HomeScreen
 import ar.edu.ort.trabajopractico.screens.login.LoginScreen
 import ar.edu.ort.trabajopractico.screens.onboarding.OnboardingScreen
+import ar.edu.ort.trabajopractico.screens.paymentmethodscreen.PaymentMethodScreen
 import ar.edu.ort.trabajopractico.screens.profilepage.ProfileScreen
 import ar.edu.ort.trabajopractico.screens.profilepage.SettingsScreen
+import ar.edu.ort.trabajopractico.screens.profilepage.*
+
 
 
 @Composable
@@ -31,8 +34,14 @@ fun MainRouteNavGraph(
         addHomeRoute(navController, viewModel)
         addOnboardingRoute(navController,viewModel)
         addLoginRoute(viewModel)
-        addProfileRoute(viewModel)
-        addSettingsRoute(viewModel)
+        addProfileRoute(navController,viewModel)
+        addSettingsRoute(navController,viewModel)
+        addAccountRoute(viewModel)
+        addNotificationRoute(viewModel)
+        addPaymentMethodRoute(viewModel)
+        addPrivacyRoute(viewModel)
+        addSecurityRoute(viewModel)
+        addFaqRoute(viewModel)
     }
 }
 
@@ -56,6 +65,7 @@ private fun NavGraphBuilder.addHomeRoute(
 }
 
 private fun NavGraphBuilder.addProfileRoute(
+    navController: NavController,
     viewModel: MainActivityViewModel
 ) {
     navigation(
@@ -63,15 +73,16 @@ private fun NavGraphBuilder.addProfileRoute(
         startDestination = LeafScreen.Profile.route
     ) {
         composable(LeafScreen.Profile.route) {
-            viewModel.setTitleBar("Perfil")
-            viewModel.setShowTopBar(true)
-            viewModel.setShowBottomBar(true)
-            ProfileScreen()
+            viewModel.setTitleBar("Profile")
+            viewModel.setShowTopBar(false)
+            viewModel.setShowBottomBar(false)
+            ProfileScreen(navController)
         }
     }
 }
 
 private fun NavGraphBuilder.addSettingsRoute(
+    navController: NavController,
     viewModel: MainActivityViewModel
 ) {
     navigation(
@@ -82,7 +93,7 @@ private fun NavGraphBuilder.addSettingsRoute(
             viewModel.setTitleBar("Settings")
             viewModel.setShowTopBar(true)
             viewModel.setShowBottomBar(true)
-            SettingsScreen()
+            SettingsScreen(navController)
         }
     }
 }
@@ -116,6 +127,93 @@ private fun NavGraphBuilder.addOnboardingRoute(
             viewModel.setShowTopBar(false)
             viewModel.setShowBottomBar(false)
             OnboardingScreen(navController)
+        }
+    }
+}
+
+private fun NavGraphBuilder.addAccountRoute(viewModel: MainActivityViewModel) {
+    navigation(
+        route = RootScreen.Account.route,
+        startDestination = LeafScreen.Account.route
+    ) {
+        composable(LeafScreen.Account.route) {
+            viewModel.setTitleBar("Account")
+            viewModel.setShowTopBar(true)
+            viewModel.setShowBottomBar(false)
+            AccountScreen()
+        }
+    }
+}
+
+
+private fun NavGraphBuilder.addNotificationRoute(viewModel: MainActivityViewModel) {
+    navigation(
+        route = RootScreen.Notification.route,
+        startDestination = LeafScreen.Notification.route
+    ) {
+        composable(LeafScreen.Notification.route) {
+            viewModel.setTitleBar("Notification")
+            viewModel.setShowTopBar(true)
+            viewModel.setShowBottomBar(false)
+            NotificationScreen()
+        }
+    }
+}
+
+private fun NavGraphBuilder.addPaymentMethodRoute(viewModel: MainActivityViewModel) {
+    navigation(
+        route = RootScreen.PaymentMethod.route,
+        startDestination = LeafScreen.PaymentMethod.route
+    ) {
+        composable(LeafScreen.PaymentMethod.route) {
+            viewModel.setTitleBar("Payment Method")
+            viewModel.setShowTopBar(true)
+            viewModel.setShowBottomBar(false)
+            PaymentMethodScreen()
+        }
+    }
+}
+
+private fun NavGraphBuilder.addPrivacyRoute(viewModel: MainActivityViewModel) {
+    navigation(
+        route = RootScreen.Privacy.route,
+        startDestination = LeafScreen.Privacy.route
+    ) {
+        composable(LeafScreen.Privacy.route) {
+            viewModel.setTitleBar("Privacy")
+            viewModel.setShowTopBar(true)
+            viewModel.setShowBottomBar(false)
+            PrivacyScreen()
+        }
+    }
+}
+
+private fun NavGraphBuilder.addSecurityRoute(viewModel: MainActivityViewModel) {
+    navigation(
+        route = RootScreen.Security.route,
+        startDestination = LeafScreen.Security.route
+    ) {
+        composable(LeafScreen.Security.route) {
+            viewModel.setTitleBar("Security")
+            viewModel.setShowTopBar(true)
+            viewModel.setShowBottomBar(false)
+            SecurityScreen()
+        }
+    }
+}
+
+
+
+private fun NavGraphBuilder.addFaqRoute(viewModel: MainActivityViewModel) {
+    navigation(
+        route = RootScreen.FAQ.route,
+        startDestination = LeafScreen.FAQ.route
+    ) {
+        composable(LeafScreen.FAQ.route) {
+            viewModel.setTitleBar("FAQ")
+            viewModel.setShowTopBar(true)
+            viewModel.setShowBottomBar(false)
+            FaqScreen()
         }
     }
 }
