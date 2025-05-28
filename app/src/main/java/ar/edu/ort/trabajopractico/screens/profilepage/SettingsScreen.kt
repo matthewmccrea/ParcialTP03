@@ -1,4 +1,4 @@
-package ar.edu.ort.trabajopractico.screens
+package ar.edu.ort.trabajopractico.screens.profilepage
 
 
 import androidx.compose.foundation.background

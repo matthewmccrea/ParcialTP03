@@ -7,9 +7,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import ar.edu.ort.trabajopractico.screens.*
 import ar.edu.ort.trabajopractico.navigation.RootScreen
 import ar.edu.ort.trabajopractico.navigation.LeafScreen
+import ar.edu.ort.trabajopractico.screens.homepage.HomeScreen
+import ar.edu.ort.trabajopractico.screens.login.LoginScreen
+import ar.edu.ort.trabajopractico.screens.onboarding.OnboardingScreen
+import ar.edu.ort.trabajopractico.screens.profilepage.ProfileScreen
+import ar.edu.ort.trabajopractico.screens.profilepage.SettingsScreen
 
 
 @Composable
@@ -20,10 +24,13 @@ fun MainRouteNavGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = RootScreen.Home.route,
+        startDestination = RootScreen.Onboarding.route,
         modifier = modifier
     ) {
+
         addHomeRoute(navController, viewModel)
+        addOnboardingRoute(navController,viewModel)
+        addLoginRoute(viewModel)
         addProfileRoute(viewModel)
         addSettingsRoute(viewModel)
     }
@@ -76,6 +83,39 @@ private fun NavGraphBuilder.addSettingsRoute(
             viewModel.setShowTopBar(true)
             viewModel.setShowBottomBar(true)
             SettingsScreen()
+        }
+    }
+}
+private fun NavGraphBuilder.addLoginRoute(
+    viewModel: MainActivityViewModel
+) {
+    navigation(
+        route = RootScreen.Login.route,
+        startDestination = LeafScreen.Login.route
+    ) {
+        composable(LeafScreen.Login.route) {
+            viewModel.setTitleBar("Login")
+            viewModel.setShowTopBar(true)
+            viewModel.setShowBottomBar(true)
+            LoginScreen()
+        }
+    }
+}
+
+private fun NavGraphBuilder.addOnboardingRoute(
+    navController: NavController,
+    viewModel: MainActivityViewModel
+
+    ) {
+    navigation(
+        route = RootScreen.Onboarding.route,
+        startDestination = LeafScreen.OnBoarding.route
+    ) {
+        composable(LeafScreen.OnBoarding.route) {
+            viewModel.setTitleBar("Onboarding")
+            viewModel.setShowTopBar(false)
+            viewModel.setShowBottomBar(false)
+            OnboardingScreen(navController)
         }
     }
 }

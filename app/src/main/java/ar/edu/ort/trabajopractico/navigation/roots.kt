@@ -1,6 +1,8 @@
 package ar.edu.ort.trabajopractico.navigation
 
 sealed class RootScreen(val route: String) {
+    object Onboarding : RootScreen("onboarding_root")
+    object Login : RootScreen("login_root")
     object Home : RootScreen("list_root")
 //    object Search : RootScreen("search_root")
 //    object Favorites : RootScreen("favourite_root")
@@ -10,6 +12,8 @@ sealed class RootScreen(val route: String) {
 }
 
 sealed class LeafScreen(val route: String) {
+    object OnBoarding : RootScreen("onboarding")
+    object Login : RootScreen("login")
     object Home : LeafScreen("home")
 //    object Search : LeafScreen("search")
 //    object Favorites : LeafScreen("favorites")

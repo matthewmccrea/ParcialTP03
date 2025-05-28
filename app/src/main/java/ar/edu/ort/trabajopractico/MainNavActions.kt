@@ -51,6 +51,32 @@ class MainNavActions(
         }
     }
 
+    val navigateToLogin: () -> Unit = {
+        scope.launch {
+            drawerState.close()
+            navController.navigate(RootScreen.Login.route) {
+                popUpTo(navController.graph.findStartDestination().id) {
+                    saveState = true
+                }
+                launchSingleTop = true
+                restoreState = true
+            }
+        }
+    }
+
+    val navigateToOnboarding: () -> Unit = {
+        scope.launch {
+            drawerState.close()
+            navController.navigate(RootScreen.Onboarding.route) {
+                popUpTo(navController.graph.findStartDestination().id) {
+                    saveState = true
+                }
+                launchSingleTop = true
+                restoreState = true
+            }
+        }
+    }
+
 
 
 }
