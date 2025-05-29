@@ -94,7 +94,7 @@ private fun NavGraphBuilder.addSettingsRoute(
         composable(LeafScreen.Setting.route) {
             viewModel.setTitleBar("Settings")
             viewModel.setShowTopBar(true)
-            viewModel.setShowBottomBar(true)
+            viewModel.setShowBottomBar(false)
             SettingsScreen(navController)
         }
     }
