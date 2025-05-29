@@ -13,6 +13,8 @@ sealed class RootScreen(val route: String) {
     object Privacy : RootScreen("privacy_root")
     object Security : RootScreen("security_root")
     object FAQ : RootScreen("faq_root")
+    object ChangeEmail : RootScreen("change_email_root")
+    object ChangePassword : RootScreen("change_password_root")
 }
 
 sealed class LeafScreen(val route: String) {
@@ -28,4 +30,6 @@ sealed class LeafScreen(val route: String) {
     object Privacy : LeafScreen("privacy")
     object Security : LeafScreen("security")
     object FAQ : LeafScreen("faq")
+    object ChangeEmail : LeafScreen("change_email")
+    object ChangePassword : LeafScreen("change_password")
 }

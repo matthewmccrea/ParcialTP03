@@ -10,10 +10,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 
 @Composable
-fun ChangePasswordScreen() {
+fun ChangeCredentialScreen(
+    title: String,
+    fields: List<String>,
+    buttonText: String
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -21,7 +24,7 @@ fun ChangePasswordScreen() {
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "Change password",
+            text = "ChangeEmail",
             style = MaterialTheme.typography.headlineMedium,
             fontSize = 28.sp,
             color = Color.Black

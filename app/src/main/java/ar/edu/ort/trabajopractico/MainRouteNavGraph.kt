@@ -40,8 +40,10 @@ fun MainRouteNavGraph(
         addNotificationRoute(viewModel)
         addPaymentMethodRoute(viewModel)
         addPrivacyRoute(viewModel)
-        addSecurityRoute(viewModel)
+        addSecurityRoute(navController,viewModel)
         addFaqRoute(viewModel)
+        addChangeEmail(viewModel)
+        addChangePassword(viewModel)
     }
 }
 
@@ -188,7 +190,7 @@ private fun NavGraphBuilder.addPrivacyRoute(viewModel: MainActivityViewModel) {
     }
 }
 
-private fun NavGraphBuilder.addSecurityRoute(viewModel: MainActivityViewModel) {
+private fun NavGraphBuilder.addSecurityRoute(navController: NavController,viewModel: MainActivityViewModel) {
     navigation(
         route = RootScreen.Security.route,
         startDestination = LeafScreen.Security.route
@@ -197,7 +199,7 @@ private fun NavGraphBuilder.addSecurityRoute(viewModel: MainActivityViewModel) {
             viewModel.setTitleBar("Security")
             viewModel.setShowTopBar(true)
             viewModel.setShowBottomBar(false)
-            SecurityScreen()
+            SecurityScreen(navController)
         }
     }
 }
@@ -217,4 +219,44 @@ private fun NavGraphBuilder.addFaqRoute(viewModel: MainActivityViewModel) {
         }
     }
 }
+
+
+
+
+private fun NavGraphBuilder.addChangePassword(viewModel: MainActivityViewModel) {
+    navigation(
+        route = RootScreen.ChangePassword.route,
+        startDestination = LeafScreen.ChangePassword.route
+    ) {
+        composable(LeafScreen.ChangePassword.route) {
+            viewModel.setTitleBar("Change Password")
+            viewModel.setShowTopBar(true)
+            viewModel.setShowBottomBar(false)
+            ChangeCredentialScreen(
+                title = "Change Password",
+                fields = listOf("New Password", "Confirm Password"),
+                buttonText = "Change Password"
+            )
+        }
+    }
+}
+
+private fun NavGraphBuilder.addChangeEmail(viewModel: MainActivityViewModel) {
+    navigation(
+        route = RootScreen.ChangeEmail.route,
+        startDestination = LeafScreen.ChangeEmail.route
+    ) {
+        composable(LeafScreen.ChangeEmail.route) {
+            viewModel.setTitleBar("Change Email")
+            viewModel.setShowTopBar(true)
+            viewModel.setShowBottomBar(false)
+            ChangeCredentialScreen(
+                title = "Change Email",
+                fields = listOf("New Email"),
+                buttonText = "Email"
+            )
+        }
+    }
+}
+
 
