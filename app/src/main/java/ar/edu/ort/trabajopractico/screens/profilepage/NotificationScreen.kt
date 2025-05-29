@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ar.edu.ort.trabajopractico.R
 import androidx.compose.ui.text.font.FontWeight
+import ar.edu.ort.trabajopractico.ui.theme.AppTypography
 
 
 @Composable
@@ -30,13 +31,13 @@ fun NotificationScreen() {
             .padding(horizontal = 24.dp, vertical = 16.dp)
     ) {
 
-        Text("Social", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+        Text("Social", style = AppTypography.sectionTitle)
         NotificationToggle("Liked Post", likedPost) { likedPost = it }
         NotificationToggle("New Message", newMessage) { newMessage = it }
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        Text("Store", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+        Text("Store", style = AppTypography.sectionTitle)
         NotificationToggle("Item Sold", itemSold) { itemSold = it }
     }
 }

@@ -16,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import ar.edu.ort.trabajopractico.ui.theme.AppTypography
 
 @Composable
 fun PrivacyScreen() {
@@ -28,29 +29,26 @@ fun PrivacyScreen() {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(
                 text = "Term of Use",
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold
+                style = AppTypography.sectionTitle
             )
             Text(
                 text = loremIpsum,
-                fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.onBackground
+                style = AppTypography.privacyItem
             )
         }
 
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(
                 text = "PetApp Service",
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold
+                style = AppTypography.sectionTitle
             )
             Text(
                 text = loremIpsum,
-                fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.onBackground
+                style = AppTypography.privacyItem
             )
         }
     }
 }
 
-private val loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris interdum sapien sodales mi sagittis hendrerit. Curabitur ut lectus nec orci cursus rhoncus. Donec a ultricies risus. Mauris ut erat ut urna rhoncus facilisis a eu neque. Ut iaculis viverra laoreet..."
+private val loremIpsum =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris interdum sapien sodales mi sagittis hendrerit. Curabitur ut lectus nec orci cursus rhoncus. Donec a ultrices risus. Mauris ut erat ut urna rhoncus facilisis a eu neque. Ut iaculis viverra laoreet. In interdum, augue non auctor pharetra, felis ante gravida ante, quis mattis quam eros non quam. Vivamus scelerisque ante nec dapibus convallis. Vestibulum quis scelerisque leo. Vestibulum quis porttitor tellus, non finibus nibh. Quisque ut tempor nulla, sed consectetur tortor. Mauris volutpat viverra arcu non laoreet. Duis eu arcu nunc. Pellentesque ultricies facilisis faucibus. Duis magna sem, ultricies sed scelerisque efficitur, hendrerit at arcu."

@@ -215,7 +215,7 @@ private fun NavGraphBuilder.addFaqRoute(viewModel: MainActivityViewModel) {
             viewModel.setTitleBar("FAQ")
             viewModel.setShowTopBar(true)
             viewModel.setShowBottomBar(false)
-            FaqScreen()
+            FAQScreen()
         }
     }
 }

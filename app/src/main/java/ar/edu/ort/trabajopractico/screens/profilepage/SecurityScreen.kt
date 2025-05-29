@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import ar.edu.ort.trabajopractico.R
 import ar.edu.ort.trabajopractico.components.profilepage.SettingsItem
+import ar.edu.ort.trabajopractico.ui.theme.AppTypography
 
 @Composable
 fun SecurityScreen(navController: NavController) {
@@ -29,15 +30,13 @@ fun SecurityScreen(navController: NavController) {
     ) {
         Text(
             text = "Security",
-            fontWeight = FontWeight.Bold,
-            fontSize = 16.sp,
-            color = MaterialTheme.colorScheme.onBackground
+            style = AppTypography.sectionTitle
         )
 
-        SettingsItem("Change Password", R.drawable.settings) {
+        SettingsItem("Change Password", R.drawable.security) {
              navController.navigate("change_password")
         }
-        SettingsItem("Change Email", R.drawable.settings) {
+        SettingsItem("Change Email", R.drawable.security) {
              navController.navigate("change_email")
         }
     }
