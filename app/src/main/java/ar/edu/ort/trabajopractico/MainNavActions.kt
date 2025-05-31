@@ -76,7 +76,44 @@ class MainNavActions(
             }
         }
     }
+    val navigateToSearch: () -> Unit = {
+        scope.launch {
+            drawerState.close()
+            navController.navigate(RootScreen.Search.route) {
+                popUpTo(navController.graph.findStartDestination().id) {
+                    saveState = true
+                }
+                launchSingleTop = true
+                restoreState = true
+            }
+        }
+    }
 
 
+    val navigateToBestSeller: () -> Unit = {
+        scope.launch {
+            drawerState.close()
+            navController.navigate(RootScreen.BestSeller.route) {
+                popUpTo(navController.graph.findStartDestination().id) {
+                    saveState = true
+                }
+                launchSingleTop = true
+                restoreState = true
+            }
+        }
+    }
 
+
+    val navigateToCart: () -> Unit = {
+        scope.launch {
+            drawerState.close()
+            navController.navigate(RootScreen.Cart.route) {
+                popUpTo(navController.graph.findStartDestination().id) {
+                    saveState = true
+                }
+                launchSingleTop = true
+                restoreState = true
+            }
+        }
+    }
 }

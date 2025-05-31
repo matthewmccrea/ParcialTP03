@@ -9,10 +9,15 @@ sealed class RootScreen(val route: String) {
     object Account : RootScreen("account_root")
     object Address : RootScreen("address_root")
     object Notification : RootScreen("notification_root")
+    object Search : RootScreen("search_root")
+    object BestSeller : RootScreen("best_seller_root")
     object PaymentMethod : RootScreen("payment_method_root")
     object Privacy : RootScreen("privacy_root")
     object Security : RootScreen("security_root")
     object FAQ : RootScreen("faq_root")
+    object ProductDetail : RootScreen("product_detail_root")
+    object Cart : RootScreen("cart_root")
+
 }
 
 sealed class LeafScreen(val route: String) {
@@ -24,8 +29,12 @@ sealed class LeafScreen(val route: String) {
     object Account : LeafScreen("account")
     object Address : LeafScreen("address")
     object Notification : LeafScreen("notification")
+    object Search : LeafScreen("search")
     object PaymentMethod : LeafScreen("payment_method")
     object Privacy : LeafScreen("privacy")
     object Security : LeafScreen("security")
     object FAQ : LeafScreen("faq")
+    object BestSeller : LeafScreen("best_seller")
+    object ProductDetail : LeafScreen("product_detail")
+    object Cart : LeafScreen("cart")
 }

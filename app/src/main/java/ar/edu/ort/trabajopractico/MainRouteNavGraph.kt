@@ -7,9 +7,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import ar.edu.ort.trabajopractico.components.CartScreen
 import ar.edu.ort.trabajopractico.navigation.RootScreen
 import ar.edu.ort.trabajopractico.navigation.LeafScreen
-import ar.edu.ort.trabajopractico.screens.homepage.HomeScreen
+import ar.edu.ort.trabajopractico.screens.homepage.BestSellerScreen
+import ar.edu.ort.trabajopractico.screens.homepage.HomeScreenScaffold
+import ar.edu.ort.trabajopractico.screens.homepage.ProductDetailScreen
+import ar.edu.ort.trabajopractico.screens.homepage.SearchScreen
 import ar.edu.ort.trabajopractico.screens.login.LoginScreen
 import ar.edu.ort.trabajopractico.screens.onboarding.OnboardingScreen
 import ar.edu.ort.trabajopractico.screens.paymentmethodscreen.PaymentMethodScreen
@@ -42,6 +46,10 @@ fun MainRouteNavGraph(
         addPrivacyRoute(viewModel)
         addSecurityRoute(viewModel)
         addFaqRoute(viewModel)
+        addSearchRoute(navController, viewModel)
+        addBestSellerRoute(navController,viewModel)
+        /*addProductDetailRoute(navController,viewModel)*/
+        addCartRoute(navController,viewModel)
     }
 }
 
@@ -54,10 +62,10 @@ private fun NavGraphBuilder.addHomeRoute(
         startDestination = LeafScreen.Home.route
     ) {
         composable(LeafScreen.Home.route) {
-            viewModel.setTitleBar("Home")
+            viewModel.setTitleBar("")
             viewModel.setShowTopBar(true)
             viewModel.setShowBottomBar(true)
-            HomeScreen(navController)
+            HomeScreenScaffold(navController)
         }
 
 
@@ -152,7 +160,7 @@ private fun NavGraphBuilder.addNotificationRoute(viewModel: MainActivityViewMode
         startDestination = LeafScreen.Notification.route
     ) {
         composable(LeafScreen.Notification.route) {
-            viewModel.setTitleBar("Notification")
+            viewModel.setTitleBar("")
             viewModel.setShowTopBar(true)
             viewModel.setShowBottomBar(false)
             NotificationScreen()
@@ -218,3 +226,80 @@ private fun NavGraphBuilder.addFaqRoute(viewModel: MainActivityViewModel) {
     }
 }
 
+private fun NavGraphBuilder.addSearchRoute(navController: NavController, viewModel: MainActivityViewModel) {
+    navigation(
+        route = RootScreen.Search.route,
+        startDestination = LeafScreen.Search.route
+    ) {
+        composable(LeafScreen.Search.route) {
+            viewModel.setTitleBar("")
+            viewModel.setShowTopBar(true)
+            viewModel.setShowBottomBar(false)
+
+            SearchScreen(
+                navController,
+                searchText = "",
+                onSearchTextChange = {},
+                selectedCategory = "Food",
+                onCategorySelected = {},
+                recentSearches = listOf("Royal Canin Persian 500g", "Royal Canin Persian 500g", "Royal Canin Persian 500g")
+            )
+        }
+    }
+}
+
+private fun NavGraphBuilder.addBestSellerRoute(
+    navController: NavController,
+    viewModel: MainActivityViewModel
+) {
+    navigation(
+        route = RootScreen.BestSeller.route,
+        startDestination = LeafScreen.BestSeller.route
+    ) {
+        composable(LeafScreen.BestSeller.route) {
+            viewModel.setTitleBar("")
+            viewModel.setShowTopBar(true)
+            viewModel.setShowBottomBar(false)
+
+            BestSellerScreen(navController)
+        }
+    }
+}
+/*private fun NavGraphBuilder.addProductDetailRoute(
+    navController: NavController,
+    viewModel: MainActivityViewModel
+) {
+    navigation(
+        route = RootScreen.ProductDetail.route,
+        startDestination = LeafScreen.ProductDetail.route
+    ) {
+        composable(LeafScreen.ProductDetail.route) {
+            viewModel.setTitleBar("Product Detail")
+            viewModel.setShowTopBar(true)
+            viewModel.setShowBottomBar(false)
+            ProductDetailScreen(navController,)
+        }
+    }
+}*/
+
+private fun NavGraphBuilder.addCartRoute(
+    navController: NavController,
+    viewModel: MainActivityViewModel
+) {
+    navigation(
+        route = RootScreen.Cart.route,
+        startDestination = LeafScreen.Cart.route
+    ) {
+        composable(LeafScreen.Cart.route) {
+            viewModel.setTitleBar("")
+            viewModel.setShowTopBar(true)
+            viewModel.setShowBottomBar(true)
+
+            CartScreen(
+                products = mockProducts,
+                onCheckout = {  },
+                navController
+            )
+        }
+    }
+}

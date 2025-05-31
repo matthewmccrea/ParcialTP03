@@ -50,7 +50,7 @@ fun SettingsScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(24.dp))
 
         Text("Account", fontWeight = FontWeight.Bold, fontSize = 16.sp)
-        SettingsItem("Account", R.drawable.icon_user) {
+        SettingsItem("Account", R.drawable.icon_user2) {
             navController.navigate("account")
         }
         SettingsItem("Address", R.drawable.icon_home) {

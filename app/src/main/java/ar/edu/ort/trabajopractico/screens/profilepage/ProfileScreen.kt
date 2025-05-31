@@ -81,12 +81,15 @@ fun ProfileScreen(navController: NavController, viewModel: ProfilePageVM = viewM
         Spacer(modifier = Modifier.weight(1f))
 
         if (selectedTab == "Product" || selectedTab == "Saved") {
-            ProductGrid(products = mockProducts)
+            ProductGrid( products = mockProducts,
+                onProductClick = {
+
+                })
         }
     }
 }
 val mockProducts = listOf(
-    Product("RC Kitten", "20,99", R.drawable.profile_picture),
+    Product("RC Kitten", "20,99", R.drawable.kitten_food1),
     Product("RC Persian", "22,99", R.drawable.profile_picture),
     Product("RC Kitten", "20,99", R.drawable.profile_picture),
     Product("RC Persian", "22,99", R.drawable.profile_picture)
