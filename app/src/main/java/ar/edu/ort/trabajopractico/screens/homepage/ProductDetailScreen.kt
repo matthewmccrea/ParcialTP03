@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -24,7 +23,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -46,44 +44,27 @@ fun ProductDetailScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(horizontal = 24.dp)
+            .padding(horizontal = 16.dp)
     ) {
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(Modifier.height(24.dp))
 
-        // Top bar
+
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            IconButton(
-                onClick = { navController.popBackStack() },
-                modifier = Modifier
-                    .size(40.dp)
-                    .background(Color(0xFFF8F8F8), shape = CircleShape)
-                    .shadow(4.dp, CircleShape)
-            ) {
-                Icon(Icons.Default.ArrowBack, contentDescription = "Back")
-            }
-
-            Text(
-                text = "Product Detail",
-                fontWeight = FontWeight.Bold,
-                fontSize = 16.sp
-            )
 
             IconButton(
                 onClick = { /* Like logic */ },
                 modifier = Modifier
-                    .size(40.dp)
+                    .size(48.dp)
                     .background(Color(0xFFF8F8F8), shape = CircleShape)
-                    .shadow(4.dp, CircleShape)
             ) {
                 Icon(Icons.Default.FavoriteBorder, contentDescription = "Like")
             }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(Modifier.height(16.dp))
 
 
         Box(
@@ -95,36 +76,35 @@ fun ProductDetailScreen(
             contentAlignment = Alignment.Center
         ) {
             Image(
-                painter = painterResource(id = product.imageRes),
+                painter = painterResource(product.imageRes),
                 contentDescription = product.name,
                 modifier = Modifier.size(250.dp),
                 contentScale = ContentScale.Fit
             )
         }
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(Modifier.height(16.dp))
 
 
         Text(
             text = product.name,
             fontWeight = FontWeight.Bold,
-            fontSize = 16.sp,
+            fontSize = 18.sp,
             color = Color.Black
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
-
+        Spacer(Modifier.height(8.dp))
 
         Text(
-            text = "The Persian cat has the longest and densest coat of all cat breeds. This means that it typically needs to consume more skin-health focused nutrients than other cat breeds. That’s why ROYAL CANIN® Persian Adult contains an exclusive complex of nutrients to help the skin’s barrier defence role to maintain good skin and coat health.",
+            text = product.price,
             fontSize = 13.sp,
             lineHeight = 18.sp,
             color = Color(0xFFB3B1B0)
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(Modifier.height(24.dp))
 
-        // Quantity and Price
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -135,21 +115,18 @@ fun ProductDetailScreen(
             Text(
                 text = "$${product.price}",
                 fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.Black
+                fontWeight = FontWeight.Bold
             )
         }
 
-        Spacer(modifier = Modifier.height(24.dp))
-
+        Spacer(Modifier.height(24.dp))
 
         PrimaryButton(
             text = "Add to Cart",
             onClick = onAddToCart,
-            modifier = Modifier
-                .fillMaxWidth()
+            modifier = Modifier.fillMaxWidth()
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(Modifier.height(16.dp))
     }
 }

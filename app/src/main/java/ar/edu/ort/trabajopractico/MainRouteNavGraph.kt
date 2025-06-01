@@ -267,8 +267,7 @@ private fun NavGraphBuilder.addBestSellerRoute(
 }
 /*private fun NavGraphBuilder.addProductDetailRoute(
     navController: NavController,
-    viewModel: MainActivityViewModel,
-    navActions: MainNavActions
+    viewModel: MainActivityViewModel
 ) {
     navigation(
         route = RootScreen.ProductDetail.route,
@@ -278,9 +277,7 @@ private fun NavGraphBuilder.addBestSellerRoute(
             viewModel.setTitleBar("Product Detail")
             viewModel.setShowTopBar(true)
             viewModel.setShowBottomBar(false)
-            ProductDetailScreen( navController = navController,
-                product = mockProducts,
-                onAddToCart = navActions.navigateToCart)
+            ProductDetailScreen(navController,)
         }
     }
 }*/
