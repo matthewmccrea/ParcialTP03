@@ -18,7 +18,13 @@ import ar.edu.ort.trabajopractico.R
 import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.border
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.navigation.NavController
+import ar.edu.ort.trabajopractico.navigation.LeafScreen
 import ar.edu.ort.trabajopractico.ui.theme.AppTypography
 import ar.edu.ort.trabajopractico.ui.theme.fontFamilyPoppins
 
@@ -27,23 +33,18 @@ import ar.edu.ort.trabajopractico.ui.theme.fontFamilyPoppins
 fun HeaderSection(
     isSeller: Boolean,
     username: String,
-    onToggleMode: () -> Unit
+    onToggleMode: () -> Unit,
+    isEdit:Boolean,
+    navController: NavController
 ) {
-    val bannerRes = R.drawable.banner_seller
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 16.dp)
-                .background(color = Color(0xFFF2F2F2), shape = CircleShape),
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {}
+
+        Spacer(modifier = Modifier.height(16.dp))
 
         Box(
             modifier = Modifier
@@ -57,12 +58,10 @@ fun HeaderSection(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(120.dp)
-                    .clip(RoundedCornerShape(20.dp))
-                    ,
+                    .clip(RoundedCornerShape(20.dp)),
                 contentScale = ContentScale.Crop
             )
 
-            // Overlay naranja si está en modo Seller
             if (isSeller) {
                 Box(
                     modifier = Modifier
@@ -72,27 +71,92 @@ fun HeaderSection(
                 )
             }
 
-            Image(
-                painter = painterResource(
-                    id = if (isSeller) R.drawable.p else R.drawable.profile_picture
-                ),
-                contentDescription = "Profile Picture",
+            if (isEdit) {
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(8.dp)
+                        .size(28.dp)
+                        .background(Color.White, CircleShape),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Edit,
+                        contentDescription = "Edit Banner",
+                        modifier = Modifier.size(16.dp),
+                        tint = Color.Black
+                    )
+                }
+            }
+
+            Box(
                 modifier = Modifier
                     .size(100.dp)
                     .offset(y = 50.dp)
-                    .clip(CircleShape),
-                contentScale = ContentScale.Crop
-            )
+                    .background(Color(0xFFEDEDED), CircleShape),
+                contentAlignment = Alignment.Center
+            ) {
+                Image(
+                    painter = painterResource(id = if (isSeller) R.drawable.p else R.drawable.profile_picture),
+                    contentDescription = "Profile Picture",
+                    modifier = Modifier
+                        .size(100.dp)
+                        .clip(CircleShape),
+                    contentScale = ContentScale.Crop
+                )
+
+                if (isEdit) {
+                    Box(
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .offset(4.dp, 4.dp)
+                            .size(28.dp)
+                            .background(Color.White, CircleShape),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Edit,
+                            contentDescription = "Edit Profile Picture",
+                            modifier = Modifier.size(16.dp),
+                            tint = Color.Black
+                        )
+                    }
+                }
+            }
+
         }
 
         Spacer(modifier = Modifier.height(68.dp))
 
-        Text(
-            text = username,
-            style = AppTypography.profileName
+        Box(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            // Título centrado
+            Text(
+                text = username,
+                style = AppTypography.profileName,
+                modifier = Modifier.align(Alignment.Center)
+            )
 
-        )
+            if (!isEdit) {
+                IconButton(
+                    onClick = { navController.navigate(LeafScreen.Setting.route) },
+                    modifier = Modifier
+                        .align(Alignment.CenterEnd)
+                        .padding(end = 24.dp)
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.settings),
+                        contentDescription = "Settings"
+                    )
+                }
+            }
+        }
+
+
+
 
         Spacer(modifier = Modifier.height(30.dp))
     }
 }
+

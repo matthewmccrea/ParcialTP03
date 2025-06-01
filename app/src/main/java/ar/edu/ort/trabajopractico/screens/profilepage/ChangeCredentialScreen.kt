@@ -37,12 +37,12 @@ fun ChangeCredentialScreen(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 16.dp) // espacio entre campos, no entre label-input
+                    .padding(bottom = 16.dp)
             ) {
                 Text(
                     text = label,
                     style = AppTypography.settingsItem,
-                    modifier = Modifier.padding(bottom = 6.dp) // espaciado entre label y campo
+                    modifier = Modifier.padding(bottom = 6.dp)
                 )
                 AppTextField(
                     value = inputs[index].value,
@@ -63,8 +63,7 @@ fun ChangeCredentialScreen(
             onClick = {
                 viewModel.submit()
                 val allFilled = inputs.all { it.value.isNotBlank() }
-                if (allFilled) {
-                }
+
             },
             modifier = Modifier.fillMaxWidth()
         )

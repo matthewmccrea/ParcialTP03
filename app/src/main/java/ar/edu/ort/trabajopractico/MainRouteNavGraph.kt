@@ -36,7 +36,7 @@ fun MainRouteNavGraph(
         addLoginRoute(viewModel)
         addProfileRoute(navController,viewModel)
         addSettingsRoute(navController,viewModel)
-        addAccountRoute(viewModel)
+        addAccountRoute(viewModel,navController)
         addNotificationRoute(viewModel)
         addPaymentMethodRoute(viewModel)
         addPrivacyRoute(viewModel)
@@ -58,7 +58,7 @@ private fun NavGraphBuilder.addHomeRoute(
         composable(LeafScreen.Home.route) {
             viewModel.setTitleBar("Home")
             viewModel.setShowTopBar(true)
-            viewModel.setShowBottomBar(true)
+            viewModel.setShowBottomBar(false)
             HomeScreen(navController)
         }
 
@@ -77,8 +77,8 @@ private fun NavGraphBuilder.addProfileRoute(
         composable(LeafScreen.Profile.route) {
             viewModel.setTitleBar("Profile")
             viewModel.setShowTopBar(false)
-            viewModel.setShowBottomBar(false)
-            ProfileScreen(navController)
+            viewModel.setShowBottomBar(true)
+            ProfileScreen(navController, mainViewModel = viewModel)
         }
     }
 }
@@ -133,7 +133,7 @@ private fun NavGraphBuilder.addOnboardingRoute(
     }
 }
 
-private fun NavGraphBuilder.addAccountRoute(viewModel: MainActivityViewModel) {
+private fun NavGraphBuilder.addAccountRoute(viewModel: MainActivityViewModel,navController: NavController) {
     navigation(
         route = RootScreen.Account.route,
         startDestination = LeafScreen.Account.route
@@ -142,7 +142,7 @@ private fun NavGraphBuilder.addAccountRoute(viewModel: MainActivityViewModel) {
             viewModel.setTitleBar("Account")
             viewModel.setShowTopBar(true)
             viewModel.setShowBottomBar(false)
-            AccountScreen()
+            AccountScreen(navController)
         }
     }
 }
@@ -253,7 +253,7 @@ private fun NavGraphBuilder.addChangeEmail(viewModel: MainActivityViewModel) {
             ChangeCredentialScreen(
                 title = "Change Email",
                 fields = listOf("New Email"),
-                buttonText = "Email"
+                buttonText = "Save"
             )
         }
     }
