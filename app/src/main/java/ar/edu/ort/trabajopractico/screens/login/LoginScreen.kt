@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.*
 import androidx.compose.material3.HorizontalDivider
@@ -115,6 +114,19 @@ fun LoginScreen(navController: NavController) {
                 }
             }
 
+            Spacer(modifier = Modifier.height(8.dp))
+
+            TextButton(
+                onClick = { navController.navigate(LeafScreen.ForgotPasswordEmail.route) },
+                modifier = Modifier.align(Alignment.End)
+            ) {
+                Text(
+                    text = "Forgot Password?",
+                    color = purple,
+                    fontSize = 14.sp
+                )
+            }
+
             Spacer(modifier = Modifier.height(24.dp))
 
             Row(
@@ -171,9 +183,34 @@ fun LoginScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(24.dp))
 
-
+            Button(
+                onClick = { navController.navigate(LeafScreen.Home.route) },
+                enabled = email.isNotBlank() && password.isNotBlank(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = if (email.isNotBlank() && password.isNotBlank()) purple else lightGray,
+                    contentColor = Color.White,
+                    disabledContainerColor = lightGray,
+                    disabledContentColor = Color.DarkGray
+                ),
+                shape = RoundedCornerShape(16.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp),
+                elevation = ButtonDefaults.buttonElevation(
+                    defaultElevation = 6.dp,
+                    pressedElevation = 2.dp,
+                    disabledElevation = 0.dp
+                )
+            ) {
+                Text(
+                    text = "Get Started",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
 
             Spacer(modifier = Modifier.height(24.dp))
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -202,21 +239,6 @@ fun LoginScreen(navController: NavController) {
                         modifier = Modifier.size(18.dp)
                     )
                 }
-
-            }
-
-            Button(
-                onClick = { /* submit */ },
-                enabled = email.isNotBlank() && password.isNotBlank(),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = if (email.isNotBlank() && password.isNotBlank()) purple else lightGray
-                ),
-                shape = RoundedCornerShape(50),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp)
-            ) {
-                Text("Get Started", fontSize = 16.sp)
             }
         }
     }

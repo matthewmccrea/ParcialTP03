@@ -3,7 +3,7 @@ package ar.edu.ort.trabajopractico.screens.login
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -13,9 +13,11 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import ar.edu.ort.trabajopractico.navigation.LeafScreen
 
-
 @Composable
 fun ForgotPasswordEmailScreen(navController: NavController) {
+    var email by remember { mutableStateOf("") }
+    val isEmailValid = email.isNotBlank() && "@" in email
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -36,15 +38,28 @@ fun ForgotPasswordEmailScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(24.dp))
             OutlinedTextField(
-                value = "",
-                onValueChange = {},
+                value = email,
+                onValueChange = { email = it },
                 label = { Text("Email") },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                isError = email.isNotBlank() && !isEmailValid
             )
+
+            if (email.isNotBlank() && !isEmailValid) {
+                Text(
+                    "Invalid email format",
+                    color = MaterialTheme.colorScheme.error,
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(top = 4.dp)
+                )
+            }
         }
 
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            TextButton(onClick = { /* Navegar al login */ }) {
+            TextButton(onClick = {
+                navController.navigate(LeafScreen.Login.route)
+            }) {
                 Text("Have an account? ", color = Color.Gray)
                 Text("Login", color = MaterialTheme.colorScheme.primary)
             }
@@ -55,6 +70,7 @@ fun ForgotPasswordEmailScreen(navController: NavController) {
                 onClick = {
                     navController.navigate(LeafScreen.ResetPassword.route)
                 },
+                enabled = isEmailValid,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp),
