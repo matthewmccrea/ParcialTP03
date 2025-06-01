@@ -10,8 +10,6 @@ import ar.edu.ort.trabajopractico.data.LoginResponse
 import ar.edu.ort.trabajopractico.data.api.RetrofitClient
 import kotlinx.coroutines.launch
 
-// LoginViewModel (ya lo tenés así):
-
 class LoginViewModel : ViewModel() {
     var loginResult by mutableStateOf<LoginResponse?>(null)
         private set
@@ -26,10 +24,17 @@ class LoginViewModel : ViewModel() {
         snackBarMessage = null
     }
 
-    fun login(username: String, password: String) {
+    /**
+     * El parámetro “email” aquí es el que el usuario ingresó.
+     * Internamente, LoginRequest(email, password) pondrá ese email
+     * dentro de la propiedad `username`.
+     */
+    fun login(email: String, password: String) {
         viewModelScope.launch {
             try {
-                val response = RetrofitClient.authApi.login(LoginRequest(username, password))
+                val request = LoginRequest(email, password)
+                val response = RetrofitClient.authApi.login(request)
+
                 if (response.isSuccessful) {
                     loginResult = response.body()
                     errorMessage = null

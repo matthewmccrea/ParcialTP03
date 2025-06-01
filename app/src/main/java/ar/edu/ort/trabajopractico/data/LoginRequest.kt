@@ -1,6 +1,6 @@
 package ar.edu.ort.trabajopractico.data
 
 data class LoginRequest(
-    val username: String,
+    private val email: String,
     val password: String
 )
