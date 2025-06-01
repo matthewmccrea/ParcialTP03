@@ -1,54 +1,34 @@
 package ar.edu.ort.trabajopractico.viewModels
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ar.edu.ort.trabajopractico.data.LoginRequest
-import ar.edu.ort.trabajopractico.data.LoginResponse
-import ar.edu.ort.trabajopractico.data.api.RetrofitClient
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
-    var loginResult by mutableStateOf<LoginResponse?>(null)
-        private set
 
-    var errorMessage by mutableStateOf<String?>(null)
-        private set
+    // Estado público solo lectura
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> get() = _isLoading
 
-    var snackBarMessage by mutableStateOf<String?>(null)
-        private set
+    // Resultado del login: null = no iniciado, true = éxito, false = error
+    private val _loginResult = MutableStateFlow<Boolean?>(null)
+    val loginResult: StateFlow<Boolean?> get() = _loginResult
 
-    fun clearSnackBarMessage() {
-        snackBarMessage = null
-    }
-
-    /**
-     * El parámetro “email” aquí es el que el usuario ingresó.
-     * Internamente, LoginRequest(email, password) pondrá ese email
-     * dentro de la propiedad `username`.
-     */
     fun login(email: String, password: String) {
         viewModelScope.launch {
-            try {
-                val request = LoginRequest(email, password)
-                val response = RetrofitClient.authApi.login(request)
+            _isLoading.value = true
 
-                if (response.isSuccessful) {
-                    loginResult = response.body()
-                    errorMessage = null
-                    snackBarMessage = "Login exitoso. ¡Bienvenido, ${loginResult?.firstName}!"
-                } else {
-                    loginResult = null
-                    errorMessage = "Login failed with code: ${response.code()}"
-                    snackBarMessage = errorMessage
-                }
-            } catch (e: Exception) {
-                loginResult = null
-                errorMessage = "Login failed: ${e.localizedMessage}"
-                snackBarMessage = errorMessage
-            }
+            // Simulamos un delay para el login, por ejemplo consulta a un servidor
+            delay(2000)
+
+            // Aquí va tu lógica real de autenticación
+            val success = (email == "test@example.com" && password == "123456")
+
+            _loginResult.value = success
+            _isLoading.value = false
         }
     }
 }

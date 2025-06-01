@@ -35,30 +35,25 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewMo
     val red = Color(0xFFE53935)
 
     val showPasswordError = email.isNotBlank() && password.isBlank()
+    val showEmailError = email.isBlank() && password.isNotBlank()
 
     val snackBarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
-    // Mostrar Snackbar si hay mensaje
-    viewModel.snackBarMessage?.let { message ->
-        LaunchedEffect(message) {
-            scope.launch {
-                snackBarHostState.showSnackbar(message)
-                viewModel.clearSnackBarMessage()
-            }
-        }
-    }
+    val isLoading by viewModel.isLoading.collectAsState()
+    val loginResult by viewModel.loginResult.collectAsState()
 
-    // Navegar al Home si login exitoso
-    LaunchedEffect(viewModel.loginResult) {
-        viewModel.loginResult?.let {
-            navController.navigate(LeafScreen.Home.route) {
-                popUpTo(LeafScreen.Login.route) { inclusive = true }
-            }
-        }
-    }
-
-
+//    LaunchedEffect(loginResult) {
+//        if (loginResult == true) {
+//            navController.navigate(LeafScreen.Home.route) {
+//                popUpTo(LeafScreen.Login.route) { inclusive = true }
+//            }
+//        } else if (loginResult == false) {
+//            scope.launch {
+//                snackBarHostState.showSnackbar("Login failed. Check your credentials.")
+//            }
+//        }
+//    }
 
     Scaffold(
         snackbarHost = {
@@ -100,12 +95,35 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewMo
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp),
+                    isError = showEmailError,
                     colors = OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = purple,
-                        unfocusedBorderColor = lightGray,
+                        focusedBorderColor = if (showEmailError) red else purple,
+                        unfocusedBorderColor = if (showEmailError) red else lightGray,
                         cursorColor = purple
-                    )
+                    ),
+                    enabled = !isLoading
                 )
+
+                if (showEmailError) {
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.padding(start = 8.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Info,
+                            contentDescription = "Error",
+                            tint = red,
+                            modifier = Modifier.size(16.dp)
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            text = "Required Fields",
+                            color = red,
+                            fontSize = 12.sp
+                        )
+                    }
+                }
 
                 Spacer(modifier = Modifier.height(16.dp))
 
@@ -123,7 +141,8 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewMo
                         focusedBorderColor = if (showPasswordError) red else purple,
                         unfocusedBorderColor = if (showPasswordError) red else lightGray,
                         cursorColor = purple
-                    )
+                    ),
+                    enabled = !isLoading
                 )
 
                 if (showPasswordError) {
@@ -151,7 +170,8 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewMo
 
                 TextButton(
                     onClick = { navController.navigate(LeafScreen.ForgotPasswordEmail.route) },
-                    modifier = Modifier.align(Alignment.End)
+                    modifier = Modifier.align(Alignment.End),
+                    enabled = !isLoading
                 ) {
                     Text(
                         text = "Forgot Password?",
@@ -185,7 +205,8 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewMo
                         onClick = { /* TODO: Google login */ },
                         shape = RoundedCornerShape(16.dp),
                         border = BorderStroke(1.dp, lightGray),
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(1f),
+                        enabled = !isLoading
                     ) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_google),
@@ -202,7 +223,8 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewMo
                         onClick = { /* TODO: Facebook login */ },
                         shape = RoundedCornerShape(16.dp),
                         border = BorderStroke(1.dp, lightGray),
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(1f),
+                        enabled = !isLoading
                     ) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_facebook),
@@ -218,9 +240,15 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewMo
 
                 Button(
                     onClick = {
-                        viewModel.login(email, password)
+                        if (email.isBlank() || password.isBlank()) {
+                            scope.launch {
+                                snackBarHostState.showSnackbar("Please complete all required fields.")
+                            }
+                        } else {
+                            viewModel.login(email, password)
+                        }
                     },
-                    enabled = email.isNotBlank() && password.isNotBlank(),
+                    enabled = !isLoading && email.isNotBlank() && password.isNotBlank(),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = if (email.isNotBlank() && password.isNotBlank()) purple else lightGray,
                         contentColor = Color.White,
@@ -237,11 +265,19 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewMo
                         disabledElevation = 0.dp
                     )
                 ) {
-                    Text(
-                        text = "Get Started",
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold
-                    )
+                    if (isLoading) {
+                        CircularProgressIndicator(
+                            color = Color.White,
+                            modifier = Modifier.size(24.dp),
+                            strokeWidth = 2.dp
+                        )
+                    } else {
+                        Text(
+                            text = "Get Started",
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
                 }
 
                 Spacer(modifier = Modifier.height(24.dp))
@@ -261,6 +297,7 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewMo
                     Spacer(modifier = Modifier.width(4.dp))
                     TextButton(
                         onClick = { navController.navigate(LeafScreen.CreateAccount.route) },
+                        enabled = !isLoading
                     ) {
                         Text(
                             text = "Create Account",
