@@ -1,4 +1,5 @@
 package ar.edu.ort.trabajopractico
+
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
@@ -10,11 +11,13 @@ import androidx.navigation.navigation
 import ar.edu.ort.trabajopractico.navigation.RootScreen
 import ar.edu.ort.trabajopractico.navigation.LeafScreen
 import ar.edu.ort.trabajopractico.screens.homepage.HomeScreen
+import ar.edu.ort.trabajopractico.screens.login.CreateAccountScreen
+import ar.edu.ort.trabajopractico.screens.login.ForgotPasswordEmailScreen
 import ar.edu.ort.trabajopractico.screens.login.LoginScreen
+import ar.edu.ort.trabajopractico.screens.login.ResetPasswordScreen
 import ar.edu.ort.trabajopractico.screens.onboarding.OnboardingScreen
 import ar.edu.ort.trabajopractico.screens.profilepage.ProfileScreen
 import ar.edu.ort.trabajopractico.screens.profilepage.SettingsScreen
-
 
 @Composable
 fun MainRouteNavGraph(
@@ -27,12 +30,13 @@ fun MainRouteNavGraph(
         startDestination = RootScreen.Onboarding.route,
         modifier = modifier
     ) {
-
         addHomeRoute(navController, viewModel)
-        addOnboardingRoute(navController,viewModel)
-        addLoginRoute(viewModel)
+        addOnboardingRoute(navController, viewModel)
+        addLoginRoute(navController, viewModel)
         addProfileRoute(viewModel)
         addSettingsRoute(viewModel)
+        addCreateAccountRoute(navController, viewModel)
+        addForgotPasswordRoute(navController, viewModel)
     }
 }
 
@@ -50,8 +54,40 @@ private fun NavGraphBuilder.addHomeRoute(
             viewModel.setShowBottomBar(true)
             HomeScreen(navController)
         }
+    }
+}
 
+private fun NavGraphBuilder.addOnboardingRoute(
+    navController: NavController,
+    viewModel: MainActivityViewModel
+) {
+    navigation(
+        route = RootScreen.Onboarding.route,
+        startDestination = LeafScreen.OnBoarding.route
+    ) {
+        composable(LeafScreen.OnBoarding.route) {
+            viewModel.setTitleBar("Onboarding")
+            viewModel.setShowTopBar(false)
+            viewModel.setShowBottomBar(false)
+            OnboardingScreen(navController)
+        }
+    }
+}
 
+private fun NavGraphBuilder.addLoginRoute(
+    navController: NavHostController,
+    viewModel: MainActivityViewModel
+) {
+    navigation(
+        route = RootScreen.Login.route,
+        startDestination = LeafScreen.Login.route
+    ) {
+        composable(LeafScreen.Login.route) {
+            viewModel.setTitleBar("Login")
+            viewModel.setShowTopBar(true)
+            viewModel.setShowBottomBar(true)
+            LoginScreen(navController)
+        }
     }
 }
 
@@ -63,7 +99,7 @@ private fun NavGraphBuilder.addProfileRoute(
         startDestination = LeafScreen.Profile.route
     ) {
         composable(LeafScreen.Profile.route) {
-            viewModel.setTitleBar("Perfil")
+            viewModel.setTitleBar("Profile")
             viewModel.setShowTopBar(true)
             viewModel.setShowBottomBar(true)
             ProfileScreen()
@@ -86,37 +122,38 @@ private fun NavGraphBuilder.addSettingsRoute(
         }
     }
 }
-private fun NavGraphBuilder.addLoginRoute(
+
+private fun NavGraphBuilder.addCreateAccountRoute(
+    navController: NavHostController,
     viewModel: MainActivityViewModel
 ) {
     navigation(
-        route = RootScreen.Login.route,
-        startDestination = LeafScreen.Login.route
+        route = RootScreen.Home.route,
+        startDestination = LeafScreen.Home.route
     ) {
-        composable(LeafScreen.Login.route) {
-            viewModel.setTitleBar("Login")
+        composable(LeafScreen.CreateAccount.route) {
+            viewModel.setTitleBar("Create Account")
             viewModel.setShowTopBar(true)
             viewModel.setShowBottomBar(true)
-            LoginScreen()
+            CreateAccountScreen(navController)
         }
     }
 }
 
-private fun NavGraphBuilder.addOnboardingRoute(
-    navController: NavController,
+private fun NavGraphBuilder.addForgotPasswordRoute(
+    navController: NavHostController,
     viewModel: MainActivityViewModel
-
-    ) {
-    navigation(
-        route = RootScreen.Onboarding.route,
-        startDestination = LeafScreen.OnBoarding.route
-    ) {
-        composable(LeafScreen.OnBoarding.route) {
-            viewModel.setTitleBar("Onboarding")
-            viewModel.setShowTopBar(false)
-            viewModel.setShowBottomBar(false)
-            OnboardingScreen(navController)
-        }
+) {
+    composable(LeafScreen.ForgotPasswordEmail.route) {
+        viewModel.setTitleBar("Forgot Password")
+        viewModel.setShowTopBar(false)
+        viewModel.setShowBottomBar(false)
+        ForgotPasswordEmailScreen(navController)
+    }
+    composable(LeafScreen.ResetPassword.route) {
+        viewModel.setTitleBar("Reset Password")
+        viewModel.setShowTopBar(false)
+        viewModel.setShowBottomBar(false)
+        ResetPasswordScreen(navController)
     }
 }
-

@@ -1,4 +1,5 @@
-package ar.edu.ort.trabajopractico.ui.theme.components
+package ar.edu.ort.trabajopractico.components
+
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
