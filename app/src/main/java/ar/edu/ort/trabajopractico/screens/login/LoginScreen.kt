@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.*
@@ -20,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import ar.edu.ort.trabajopractico.R
+import ar.edu.ort.trabajopractico.navigation.LeafScreen
 
 @Composable
 fun LoginScreen(navController: NavController) {
@@ -185,19 +187,22 @@ fun LoginScreen(navController: NavController) {
                     fontSize = 14.sp
                 )
                 Spacer(modifier = Modifier.width(4.dp))
-                TextButton(onClick = { /* TODO: Navegar a la pantalla de registro */ }) {
+                TextButton(
+                    onClick = { navController.navigate(LeafScreen.CreateAccount.route) },
+                ) {
                     Text(
                         text = "Create Account",
                         color = purple,
                         fontSize = 14.sp
                     )
                     Icon(
-                        imageVector = Icons.Default.ArrowForward,
+                        imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                         contentDescription = "Go to Sign Up",
                         tint = purple,
                         modifier = Modifier.size(18.dp)
                     )
                 }
+
             }
 
             Button(
