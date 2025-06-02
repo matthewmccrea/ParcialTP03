@@ -20,7 +20,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import ar.edu.ort.trabajopractico.ui.theme.TrabajoPracticoTheme
 import ar.edu.ort.trabajopractico.components.BottomNavBar
-import ar.edu.ort.trabajopractico.components.AppDrawer
+//import ar.edu.ort.trabajopractico.components.AppDrawer
 import kotlinx.coroutines.launch
 import androidx.compose.foundation.layout.systemBars
 
@@ -40,7 +40,7 @@ fun AppTrabajoPractico(
         val showBottomBar by viewModel.showBottomBar.observeAsState(true)
         val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
 
-        val navActions = remember(navController) {
+        var navActions = remember(navController) {
             MainNavActions(navController, scope, drawerState)
         }
 //        if (drawerState.isOpen) {
@@ -51,10 +51,10 @@ fun AppTrabajoPractico(
 //            }
 //        }
 
-        AppDrawer(
-            drawerState = drawerState,
-            navActions = navActions
-        ) {
+//        AppDrawer(
+//            drawerState = drawerState,
+//            navActions = navActions
+//        ) {
             Scaffold(
                 topBar = {
                     if (showTopBar) {
@@ -84,4 +84,4 @@ fun AppTrabajoPractico(
             }
         }
     }
-}
+

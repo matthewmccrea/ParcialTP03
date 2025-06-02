@@ -13,24 +13,30 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import ar.edu.ort.trabajopractico.MainActivityViewModel
 import ar.edu.ort.trabajopractico.R
 import ar.edu.ort.trabajopractico.components.ProductGrid
 import ar.edu.ort.trabajopractico.data.Product
 import ar.edu.ort.trabajopractico.navigation.LeafScreen
+import ar.edu.ort.trabajopractico.viewmodels.FavouriteViewModel
 
 
 @Composable
-fun ProfileScreen(navController: NavController, viewModel: ProfilePageVM = viewModel(), mainViewModel: MainActivityViewModel) {
+fun ProfileScreen(navController: NavController, viewModel: ProfilePageVM = viewModel(), mainViewModel: MainActivityViewModel, favouriteViewModel: FavouriteViewModel = hiltViewModel()) {
     val isSeller = viewModel.isSeller
     val selectedTab = viewModel.selectedTab
+    val favourites by favouriteViewModel.favouriteProducts.collectAsState()
+
 
 
     Column(
@@ -76,13 +82,13 @@ fun ProfileScreen(navController: NavController, viewModel: ProfilePageVM = viewM
         Spacer(modifier = Modifier.weight(1f))
 
         if (selectedTab == "Product" || selectedTab == "Saved" ||  selectedTab=="Sold"  ) {
-            ProductGrid(products = mockProducts ,  onProductClick = {})
+            ProductGrid(products = mockProducts ,   favouriteViewModel = favouriteViewModel)
         }
     }
 }
 val mockProducts = listOf(
-    Product("RC Kitten", "20,99", R.drawable.food_1),
-    Product("RC Persian", "22,99", R.drawable.food_1),
-    Product("RC Kitten", "20,99", R.drawable.food_2),
-    Product("RC Persian", "22,99", R.drawable.food_2)
+    Product(10,"RC Kitten", "20,99", R.drawable.food_1),
+    Product(11,"RC Persian", "22,99", R.drawable.food_1),
+    Product(12,"RC Kitten", "20,99", R.drawable.food_2),
+    Product(13,"RC Persian", "22,99", R.drawable.food_2)
 )
