@@ -2,6 +2,8 @@ package ar.edu.ort.trabajopractico.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import ar.edu.ort.trabajopractico.data.LoginRequest
+import ar.edu.ort.trabajopractico.data.api.RetrofitClient
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,18 +19,27 @@ class LoginViewModel : ViewModel() {
     private val _loginResult = MutableStateFlow<Boolean?>(null)
     val loginResult: StateFlow<Boolean?> get() = _loginResult
 
-    fun login(email: String, password: String) {
+    fun login(username: String, password: String) {
         viewModelScope.launch {
             _isLoading.value = true
 
-            // Simulamos un delay para el login, por ejemplo consulta a un servidor
-            delay(2000)
+            try {
+                val response = RetrofitClient.authApi.login(LoginRequest(username, password))
 
-            // Aquí va tu lógica real de autenticación
-            val success = (email == "test@example.com" && password == "123456")
+                if (response.isSuccessful) {
+                    val user = response.body()
+                    _loginResult.value = true
+                } else {
+                    _loginResult.value = false
+                }
 
-            _loginResult.value = success
-            _isLoading.value = false
+            } catch (e: Exception) {
+                e.printStackTrace()
+                _loginResult.value = false
+            } finally {
+                _isLoading.value = false
+            }
         }
     }
+
 }
