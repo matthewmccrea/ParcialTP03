@@ -1,4 +1,5 @@
 package ar.edu.ort.trabajopractico
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DrawerValue
@@ -21,6 +22,7 @@ import ar.edu.ort.trabajopractico.ui.theme.TrabajoPracticoTheme
 import ar.edu.ort.trabajopractico.components.BottomNavBar
 import ar.edu.ort.trabajopractico.components.AppDrawer
 import kotlinx.coroutines.launch
+import androidx.compose.foundation.layout.systemBars
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -70,7 +72,9 @@ fun AppTrabajoPractico(
                 },
                 snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
                 containerColor = MaterialTheme.colorScheme.background,
+                contentWindowInsets = WindowInsets.systemBars,
                 modifier = Modifier.fillMaxSize()
+
             ) { innerPadding ->
                 MainRouteNavGraph(
                     modifier = Modifier.padding(innerPadding),
