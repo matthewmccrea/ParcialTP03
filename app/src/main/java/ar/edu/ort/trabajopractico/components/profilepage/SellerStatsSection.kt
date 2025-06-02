@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Arrangement
+import ar.edu.ort.trabajopractico.ui.theme.AppTypography
 
 
 @Composable
@@ -31,7 +32,7 @@ fun SellerStatsSection() {
 @Composable
 fun StatItem(label: String, value: String) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = value, fontWeight = FontWeight.Bold, fontSize = 16.sp)
-        Text(text = label, fontSize = 12.sp, color = Color.Gray)
+        Text(text = value ,style = AppTypography.statsNumber)
+        Text(text = label ,style = AppTypography.statsName)
     }
 }

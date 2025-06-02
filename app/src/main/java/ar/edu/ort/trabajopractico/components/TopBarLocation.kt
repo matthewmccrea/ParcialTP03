@@ -77,7 +77,7 @@ fun TopBarLocation(navController: NavController) {
             IconBox(
                 icon = Icons.Default.Notifications,
                 onClick = {
-                    navController.navigate(LeafScreen.Notification.route)
+                    navController.navigate(LeafScreen.NotificationAccount.route)
                 }
             )
 
