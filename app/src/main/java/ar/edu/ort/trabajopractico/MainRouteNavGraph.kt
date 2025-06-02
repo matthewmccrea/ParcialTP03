@@ -13,6 +13,7 @@ import ar.edu.ort.trabajopractico.screens.login.CreateAccountScreen
 import ar.edu.ort.trabajopractico.screens.login.ForgotPasswordEmailScreen
 import ar.edu.ort.trabajopractico.screens.homepage.BestSellerScreen
 import ar.edu.ort.trabajopractico.screens.homepage.CartScreen
+import ar.edu.ort.trabajopractico.screens.homepage.FavouriteScreen
 import ar.edu.ort.trabajopractico.screens.homepage.HomeScreenScaffold
 import ar.edu.ort.trabajopractico.screens.homepage.NotificationAccountScreen
 import ar.edu.ort.trabajopractico.screens.homepage.ProductDetailScreen
@@ -58,6 +59,7 @@ fun MainRouteNavGraph(
         addBestSellerRoute(navController,viewModel)
         /*addProductDetailRoute(navController,viewModel)*/
         addCartRoute(navController,viewModel)
+        addFavouritesRoute(navController,viewModel)
     }
 }
 
@@ -402,3 +404,22 @@ private fun NavGraphBuilder.addCartRoute(
         }
     }
 }
+
+private fun NavGraphBuilder.addFavouritesRoute(
+    navController: NavController,
+    viewModel: MainActivityViewModel
+) {
+    navigation(
+        route = RootScreen.Favourites.route,
+        startDestination = LeafScreen.Favourites.route
+    ) {
+        composable(LeafScreen.Favourites.route) {
+            viewModel.setTitleBar("")
+            viewModel.setShowTopBar(true)
+            viewModel.setShowBottomBar(true)
+
+            FavouriteScreen()
+        }
+    }
+}
+
