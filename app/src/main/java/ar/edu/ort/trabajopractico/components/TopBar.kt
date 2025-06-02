@@ -23,8 +23,8 @@ fun TopBar(
                 }
             }) {
                 Icon(
-                    painter = painterResource(id = R.drawable.icon_menu),
-                    contentDescription = stringResource(id = R.string.topbar_menu_icon)
+                    painter = painterResource(id = R.drawable.arrow_left),
+                    contentDescription = "Back"
                 )
             }
         }

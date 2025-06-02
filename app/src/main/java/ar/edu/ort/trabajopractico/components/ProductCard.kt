@@ -30,6 +30,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import ar.edu.ort.trabajopractico.R
 import ar.edu.ort.trabajopractico.ui.theme.AppTypography
 
 @Composable
@@ -38,6 +39,8 @@ fun ProductCard(
     name: String,
     price: String,
     onAddClick: () -> Unit,
+    onFavouriteClick: () -> Unit,
+    isFavourite: Boolean,
     modifier: Modifier = Modifier
 ) {
     Surface(
@@ -55,18 +58,24 @@ fun ProductCard(
             verticalArrangement = Arrangement.SpaceBetween
         ) {
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
+            Box {
                 Image(
                     painter = painterResource(id = imageRes),
                     contentDescription = name,
                     contentScale = ContentScale.Fit,
                     modifier = Modifier.size(142.dp)
                 )
+                Icon(
+                    painter = painterResource(
+                        id = if (isFavourite) R.drawable.heart_filled else R.drawable.heart_empty
+                    ),
+                    contentDescription = "Favourite",
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .size(24.dp)
+                        .clickable { onFavouriteClick() }
+                )
             }
-
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -105,4 +114,6 @@ fun ProductCard(
         }
     }
 }
+
+
 

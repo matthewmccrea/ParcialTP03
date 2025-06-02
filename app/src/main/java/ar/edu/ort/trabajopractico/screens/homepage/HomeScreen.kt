@@ -7,12 +7,15 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import ar.edu.ort.trabajopractico.components.Banner
 import ar.edu.ort.trabajopractico.components.HomeButtons
@@ -21,13 +24,18 @@ import ar.edu.ort.trabajopractico.components.TopBarLocation
 import ar.edu.ort.trabajopractico.data.Product
 import ar.edu.ort.trabajopractico.R
 import ar.edu.ort.trabajopractico.components.ProductCard
+import ar.edu.ort.trabajopractico.data.local.FavouriteProduct
 import ar.edu.ort.trabajopractico.navigation.LeafScreen
+import ar.edu.ort.trabajopractico.viewmodels.FavouriteViewModel
 
 @Composable
-fun HomeScreenScaffold(navController: NavController) {
+fun HomeScreenScaffold(navController: NavController,favouriteViewModel: FavouriteViewModel = hiltViewModel()
+) {
+    val favourites by favouriteViewModel.favouriteProducts.collectAsState()
+
     val mockProducts = listOf(
-        Product("RC Kitten", "20,99", R.drawable.kitten_food1),
-        Product("RC Persian", "22,99", R.drawable.persian_cat)
+        Product(1,"RC Kitten", "20,99", R.drawable.kitten_food1),
+        Product(2,"RC Persian", "22,99", R.drawable.persian_cat)
     )
 
     Scaffold(
@@ -116,23 +124,32 @@ fun HomeScreenScaffold(navController: NavController) {
                         .padding(horizontal = 16.dp),
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    ProductCard(
-                        imageRes = R.drawable.kitten_food1,
-                        name = "RC Kitten",
-                        price = "20,99",
-                        onAddClick = {}
-                    )
+                    mockProducts.forEach { product ->
+                        val isFavourite = favourites.any { it.id == product.id.toString() }
 
-                    ProductCard(
-                        imageRes = R.drawable.kitten_food1,
-                        name = "RC Persian",
-                        price = "22,99",
-                        onAddClick = {}
-                    )
+                        ProductCard(
+                            imageRes = product.imageRes,
+                            name = product.name,
+                            price = product.price,
+                            isFavourite = isFavourite,
+                            onAddClick = { /* lo que necesites */ },
+                            onFavouriteClick = {
+                                favouriteViewModel.toggleFavourite(
+                                    FavouriteProduct(
+                                        id = product.id.toString(),
+                                        name = product.name,
+                                        price = product.price,
+                                        imageRes = product.imageRes
+                                    )
+                                )
+                            }
+                        )
+                    }
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
             }
+
 
         }
 

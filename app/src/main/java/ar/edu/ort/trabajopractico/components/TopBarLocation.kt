@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
@@ -78,6 +79,12 @@ fun TopBarLocation(navController: NavController) {
                 icon = Icons.Default.Notifications,
                 onClick = {
                     navController.navigate(LeafScreen.NotificationAccount.route)
+                }
+            )
+            IconBox(
+                icon = Icons.Default.Favorite,
+                onClick = {
+                    navController.navigate(LeafScreen.Favourites.route)
                 }
             )
 

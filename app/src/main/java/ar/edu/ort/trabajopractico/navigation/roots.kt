@@ -21,6 +21,8 @@ sealed class RootScreen(val route: String) {
     object ProductDetail : RootScreen("product_detail_root")
     object Cart : RootScreen("cart_root")
     object CreateAccount: RootScreen ("create_account_root")
+    object Favourites: RootScreen ("favourites_root")
+
 }
 
 sealed class LeafScreen(val route: String) {
@@ -46,4 +48,6 @@ sealed class LeafScreen(val route: String) {
     object CreateAccount : LeafScreen("create_account")
     object ChangeEmail : LeafScreen("change_email")
     object ChangePassword : LeafScreen("change_password")
+    object Favourites : LeafScreen("favourites")
+
 }
