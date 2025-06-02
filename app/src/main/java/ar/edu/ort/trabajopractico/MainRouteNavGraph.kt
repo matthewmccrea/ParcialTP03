@@ -107,7 +107,7 @@ private fun NavGraphBuilder.addLoginRoute(
     ) {
         composable(LeafScreen.Login.route) {
             viewModel.setTitleBar("Login")
-            viewModel.setShowTopBar(true)
+            viewModel.setShowTopBar(false)
             viewModel.setShowBottomBar(true)
             LoginScreen(navController)
         }
@@ -160,7 +160,7 @@ private fun NavGraphBuilder.addCreateAccountRoute(
     ) {
         composable(LeafScreen.CreateAccount.route) {
             viewModel.setTitleBar("Create Account")
-            viewModel.setShowTopBar(true)
+            viewModel.setShowTopBar(false)
             viewModel.setShowBottomBar(true)
             CreateAccountScreen(navController)
         }

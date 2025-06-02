@@ -27,15 +27,15 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewModel()) {
-    var email by remember { mutableStateOf("") }
+    var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
     val purple = Color(0xFF8A56AC)
     val lightGray = Color(0xFFE5E5E5)
     val red = Color(0xFFE53935)
 
-    val showPasswordError = email.isNotBlank() && password.isBlank()
-    val showEmailError = email.isBlank() && password.isNotBlank()
+    val showPasswordError = username.isNotBlank() && password.isBlank()
+    val showEmailError = username.isBlank() && password.isNotBlank()
 
     val snackBarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
@@ -43,17 +43,17 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewMo
     val isLoading by viewModel.isLoading.collectAsState()
     val loginResult by viewModel.loginResult.collectAsState()
 
-//    LaunchedEffect(loginResult) {
-//        if (loginResult == true) {
-//            navController.navigate(LeafScreen.Home.route) {
-//                popUpTo(LeafScreen.Login.route) { inclusive = true }
-//            }
-//        } else if (loginResult == false) {
-//            scope.launch {
-//                snackBarHostState.showSnackbar("Login failed. Check your credentials.")
-//            }
-//        }
-//    }
+    LaunchedEffect(loginResult) {
+        if (loginResult == true) {
+            navController.navigate(LeafScreen.Home.route) {
+                popUpTo(LeafScreen.Login.route) { inclusive = true }
+            }
+        } else if (loginResult == false) {
+            scope.launch {
+                snackBarHostState.showSnackbar("Login failed. Check your credentials.")
+            }
+        }
+    }
 
     Scaffold(
         snackbarHost = {
@@ -88,8 +88,8 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewMo
                 Spacer(modifier = Modifier.height(24.dp))
 
                 OutlinedTextField(
-                    value = email,
-                    onValueChange = { email = it },
+                    value = username,
+                    onValueChange = { username = it },
                     placeholder = { Text("Email") },
                     shape = RoundedCornerShape(16.dp),
                     modifier = Modifier
@@ -240,17 +240,17 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewMo
 
                 Button(
                     onClick = {
-                        if (email.isBlank() || password.isBlank()) {
+                        if (username.isBlank() || password.isBlank()) {
                             scope.launch {
                                 snackBarHostState.showSnackbar("Please complete all required fields.")
                             }
                         } else {
-                            viewModel.login(email, password)
+                            viewModel.login(username, password)
                         }
                     },
-                    enabled = !isLoading && email.isNotBlank() && password.isNotBlank(),
+                    enabled = !isLoading && username.isNotBlank() && password.isNotBlank(),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = if (email.isNotBlank() && password.isNotBlank()) purple else lightGray,
+                        containerColor = if (username.isNotBlank() && password.isNotBlank()) purple else lightGray,
                         contentColor = Color.White,
                         disabledContainerColor = lightGray,
                         disabledContentColor = Color.DarkGray
