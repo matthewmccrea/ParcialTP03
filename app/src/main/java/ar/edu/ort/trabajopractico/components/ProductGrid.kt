@@ -15,7 +15,7 @@ import ar.edu.ort.trabajopractico.data.Product
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ProductGrid(products: List<Product>) {
+fun ProductGrid(products: List<Product>,onProductClick: () -> Unit) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         modifier = Modifier
@@ -30,7 +30,7 @@ fun ProductGrid(products: List<Product>) {
                 imageRes = product.imageRes,
                 name = product.name,
                 price = product.price,
-                onAddClick = { /* Lo implementás después */ }
+                onAddClick = onProductClick
             )
         }
     }

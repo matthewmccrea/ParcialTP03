@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -29,6 +30,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import ar.edu.ort.trabajopractico.ui.theme.AppTypography
 
 @Composable
 fun ProductCard(
@@ -76,22 +78,18 @@ fun ProductCard(
                 ) {
                     Text(
                         text = name,
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Normal,
-                        color = Color.Black
+                        style = AppTypography.statsName
                     )
                     Text(
                         text = "$$price",
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        lineHeight = 20.sp,
-                        color = Color.Black
+                        style = AppTypography.statsNumber
                     )
                 }
 
                 Box(
                     modifier = Modifier
                         .size(30.dp)
+                        .offset(y = 7.dp)
                         .background(Color(0xFF7140FD), shape = CircleShape)
                         .clickable { onAddClick() },
                     contentAlignment = Alignment.Center

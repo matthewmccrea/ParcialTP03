@@ -12,6 +12,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -19,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import ar.edu.ort.trabajopractico.MainActivityViewModel
 import ar.edu.ort.trabajopractico.R
 import ar.edu.ort.trabajopractico.components.ProductGrid
 import ar.edu.ort.trabajopractico.data.Product
@@ -26,9 +28,10 @@ import ar.edu.ort.trabajopractico.navigation.LeafScreen
 
 
 @Composable
-fun ProfileScreen(navController: NavController, viewModel: ProfilePageVM = viewModel()) {
+fun ProfileScreen(navController: NavController, viewModel: ProfilePageVM = viewModel(), mainViewModel: MainActivityViewModel) {
     val isSeller = viewModel.isSeller
     val selectedTab = viewModel.selectedTab
+
 
     Column(
         modifier = Modifier
@@ -53,20 +56,12 @@ fun ProfileScreen(navController: NavController, viewModel: ProfilePageVM = viewM
         HeaderSection(
             isSeller = isSeller,
             username = if (isSeller) "Pittashop" else "Abduldul",
-            onToggleMode = viewModel::toggleMode
+            onToggleMode = viewModel::toggleMode,
+            isEdit = false,
+            navController = navController
         )
 
-        IconButton(
-            onClick = { navController.navigate(LeafScreen.Setting.route) },
-            modifier = Modifier
-                .align(Alignment.TopEnd)
-                .padding(top = 12.dp, end = 24.dp)
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.settings),
-                contentDescription = "Settings"
-            )
-        }
+
         }
         if (isSeller) {
             SellerStatsSection()
@@ -80,14 +75,14 @@ fun ProfileScreen(navController: NavController, viewModel: ProfilePageVM = viewM
 
         Spacer(modifier = Modifier.weight(1f))
 
-        if (selectedTab == "Product" || selectedTab == "Saved") {
-            ProductGrid(products = mockProducts)
+        if (selectedTab == "Product" || selectedTab == "Saved" ||  selectedTab=="Sold"  ) {
+            ProductGrid(products = mockProducts ,  onProductClick = {})
         }
     }
 }
 val mockProducts = listOf(
-    Product("RC Kitten", "20,99", R.drawable.profile_picture),
-    Product("RC Persian", "22,99", R.drawable.profile_picture),
-    Product("RC Kitten", "20,99", R.drawable.profile_picture),
-    Product("RC Persian", "22,99", R.drawable.profile_picture)
+    Product("RC Kitten", "20,99", R.drawable.food_1),
+    Product("RC Persian", "22,99", R.drawable.food_1),
+    Product("RC Kitten", "20,99", R.drawable.food_2),
+    Product("RC Persian", "22,99", R.drawable.food_2)
 )
