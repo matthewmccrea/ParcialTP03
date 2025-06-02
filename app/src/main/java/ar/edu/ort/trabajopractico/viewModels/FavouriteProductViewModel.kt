@@ -41,4 +41,15 @@ class FavouriteViewModel @Inject constructor(
                 false
             )
     }
+
+    fun toggleFavourite(product: FavouriteProduct) {
+        viewModelScope.launch {
+            val isFav = repository.isFavorite(product.id).first()
+            if (isFav) {
+                removeFavourite(product)
+            } else {
+                addFavourite(product)
+            }
+        }
+    }
 }
