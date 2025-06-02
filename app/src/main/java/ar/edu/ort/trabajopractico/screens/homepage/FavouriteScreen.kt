@@ -7,20 +7,19 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import ar.edu.ort.trabajopractico.components.FavouriteItem
 import ar.edu.ort.trabajopractico.viewmodels.FavouriteViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FavouriteScreen(
+fun FavouriteScreen(navController:NavController,
     viewModel: FavouriteViewModel = hiltViewModel()
 ) {
     val favourites by viewModel.favouriteProducts.collectAsState()
 
     Scaffold(
-        topBar = {
-            TopAppBar(title = { Text("Mis Favoritos") })
-        }
+
     ) { paddingValues ->
         if (favourites.isEmpty()) {
             Box(

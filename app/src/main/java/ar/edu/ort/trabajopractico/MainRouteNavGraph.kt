@@ -414,11 +414,11 @@ private fun NavGraphBuilder.addFavouritesRoute(
         startDestination = LeafScreen.Favourites.route
     ) {
         composable(LeafScreen.Favourites.route) {
-            viewModel.setTitleBar("")
+            viewModel.setTitleBar("Mis Favoritos")
             viewModel.setShowTopBar(true)
             viewModel.setShowBottomBar(true)
 
-            FavouriteScreen()
+            FavouriteScreen(navController)
         }
     }
 }
