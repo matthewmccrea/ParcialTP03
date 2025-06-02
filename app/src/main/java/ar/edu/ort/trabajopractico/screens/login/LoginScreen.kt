@@ -90,7 +90,7 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewMo
                 OutlinedTextField(
                     value = username,
                     onValueChange = { username = it },
-                    placeholder = { Text("Email") },
+                    placeholder = { Text("Username") },
                     shape = RoundedCornerShape(16.dp),
                     modifier = Modifier
                         .fillMaxWidth()
