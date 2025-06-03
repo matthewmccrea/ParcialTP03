@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -30,7 +31,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import ar.edu.ort.trabajopractico.R
+import ar.edu.ort.trabajopractico.navigation.LeafScreen
 import ar.edu.ort.trabajopractico.ui.theme.AppTypography
 
 @Composable
@@ -46,7 +49,7 @@ fun ProductCard(
     Surface(
         modifier = modifier
             .width(156.dp)
-            .height(210.dp),
+            .height(IntrinsicSize.Min),
         shape = RoundedCornerShape(24.dp),
         color = Color(0xFFF8F8F8),
         tonalElevation = 2.dp
@@ -64,6 +67,7 @@ fun ProductCard(
                     contentDescription = name,
                     contentScale = ContentScale.Fit,
                     modifier = Modifier.size(142.dp)
+
                 )
                 Icon(
                     painter = painterResource(
@@ -87,7 +91,7 @@ fun ProductCard(
                 ) {
                     Text(
                         text = name,
-                        style = AppTypography.statsName
+                        style = AppTypography.statsName,
                     )
                     Text(
                         text = "$$price",

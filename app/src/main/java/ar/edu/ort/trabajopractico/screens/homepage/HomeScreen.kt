@@ -3,6 +3,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -27,16 +28,17 @@ import ar.edu.ort.trabajopractico.components.ProductCard
 import ar.edu.ort.trabajopractico.data.local.FavouriteProduct
 import ar.edu.ort.trabajopractico.navigation.LeafScreen
 import ar.edu.ort.trabajopractico.viewmodels.FavouriteViewModel
+import ar.edu.ort.trabajopractico.viewmodels.ProductViewModel
 
 @Composable
-fun HomeScreenScaffold(navController: NavController,favouriteViewModel: FavouriteViewModel = hiltViewModel()
+fun HomeScreenScaffold(
+    navController: NavController,
+    favouriteViewModel: FavouriteViewModel = hiltViewModel(),
+    productViewModel: ProductViewModel = hiltViewModel()
 ) {
     val favourites by favouriteViewModel.favouriteProducts.collectAsState()
-
-    val mockProducts = listOf(
-        Product(1,"RC Kitten", "20,99", R.drawable.kitten_food1),
-        Product(2,"RC Persian", "22,99", R.drawable.persian_cat)
-    )
+    val products by productViewModel.products.collectAsState()
+    val isLoading by productViewModel.isLoading.collectAsState()
 
     Scaffold(
         topBar = {
@@ -79,8 +81,6 @@ fun HomeScreenScaffold(navController: NavController,favouriteViewModel: Favourit
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
-
-
             }
             item {
                 HomeButtons(
@@ -117,41 +117,48 @@ fun HomeScreenScaffold(navController: NavController,favouriteViewModel: Favourit
                 Spacer(modifier = Modifier.height(16.dp))
             }
             item {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentWidth(Alignment.CenterHorizontally)
-                        .padding(horizontal = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    mockProducts.forEach { product ->
-                        val isFavourite = favourites.any { it.id == product.id.toString() }
+                if (isLoading) {
+                    Box(
+                        modifier = Modifier.fillMaxWidth(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                } else {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentWidth(Alignment.CenterHorizontally)
+                            .padding(horizontal = 16.dp),
+                        horizontalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        products.take(2).forEach { product ->
+                            val isFavourite = favourites.any { it.id == product.id.toString() }
 
-                        ProductCard(
-                            imageRes = product.imageRes,
-                            name = product.name,
-                            price = product.price,
-                            isFavourite = isFavourite,
-                            onAddClick = { /* lo que necesites */ },
-                            onFavouriteClick = {
-                                favouriteViewModel.toggleFavourite(
-                                    FavouriteProduct(
-                                        id = product.id.toString(),
-                                        name = product.name,
-                                        price = product.price,
-                                        imageRes = product.imageRes
+                            ProductCard(
+                                imageRes = product.imageRes,
+                                name = product.title ?: "",
+                                price = product.price ?: "",
+                                isFavourite = isFavourite,
+                                onAddClick = { },
+                                onFavouriteClick = {
+                                    favouriteViewModel.toggleFavourite(
+                                        FavouriteProduct(
+                                            id = product.id.toString(),
+                                            name = product.title ?: "",
+                                            price = product.price ?: "",
+                                            imageRes = product.imageRes
+                                        )
                                     )
-                                )
-                            }
-                        )
+                                }
+
+                            )
+                        }
                     }
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
             }
-
-
         }
-
     }
 }
