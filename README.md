@@ -61,29 +61,6 @@ Username: emilys
 Password: emilyspass
 Fuente: https://dummyjson.com/users
 
-### 📁 Estructura del proyecto
-
-ar.edu.ort.trabajopractico/
-├── components/              # Composables reutilizables (botones, cards, etc.)
-├── core/                   # Utilidades generales o clases base (si las hubiera)
-├── data/                   # Modelos, DAOs, API y DTOs
-│   ├── api/                # Interfaces de Retrofit y cliente HTTP
-│   └── local/              # Room: DAOs, entidades y base de datos
-├── di/                     # Módulos de Hilt para inyección de dependencias
-├── navigation/             # Navegación: rutas, NavGraph, helpers
-├── repository/             # Repositorios que encapsulan la lógica de acceso a datos
-├── screens/                # Pantallas de la app (onboarding, login, home, etc.)
-├── ui.theme/               # Temas, colores, tipografía y estilos de UI
-├── viewmodels/             # ViewModels con lógica de estado y comunicación con repos
-├── AppTrabajoPractico.kt   # Composable raíz con configuración general (Scaffold)
-├── MainActivity.kt         # Entry point de la app
-├── MainActivityViewModel.kt# ViewModel general para control de barras o rutas
-├── MainNavActions.kt       # Acciones de navegación encapsuladas
-└── MainRouteNavGraph.kt    # Definición de la navegación principal (NavHost)
-
-
-
-
 🎯 Backlog (próximas mejoras)
 Registro de nuevos usuarios
 
