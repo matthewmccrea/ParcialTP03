@@ -62,8 +62,16 @@ fun SearchScreen(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            Box(modifier = Modifier.width(40.dp)) {
-
+            IconButton(
+                onClick = { navController.popBackStack() },
+                modifier = Modifier
+                    .size(40.dp)
+                    .background(Color(0xFFF8F8F8), shape = CircleShape)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = "Back"
+                )
             }
 
             Text(
@@ -74,9 +82,7 @@ fun SearchScreen(
                 textAlign = TextAlign.Center
             )
 
-            Box(modifier = Modifier.width(40.dp)) {
-
-            }
+            Box(modifier = Modifier.width(40.dp)) { /* empty placeholder for balance */ }
         }
 
         Spacer(modifier = Modifier.height(24.dp))

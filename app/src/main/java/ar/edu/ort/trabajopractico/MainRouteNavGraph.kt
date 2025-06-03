@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import ar.edu.ort.trabajopractico.data.Product
 import ar.edu.ort.trabajopractico.navigation.RootScreen
 import ar.edu.ort.trabajopractico.navigation.LeafScreen
 import ar.edu.ort.trabajopractico.screens.login.CreateAccountScreen
@@ -47,7 +48,7 @@ fun MainRouteNavGraph(
         addProfileRoute(navController,viewModel)
         addSettingsRoute(navController,viewModel)
         addAccountRoute(viewModel,navController)
-        addNotificationAccountRoute(viewModel)
+        addNotificationAccountRoute(viewModel, navController)
         addNotificationRoute(viewModel)
         addPaymentMethodRoute(viewModel)
         addPrivacyRoute(viewModel)
@@ -57,7 +58,7 @@ fun MainRouteNavGraph(
         addChangePassword(viewModel)
         addSearchRoute(navController, viewModel)
         addBestSellerRoute(navController,viewModel)
-        /*addProductDetailRoute(navController,viewModel)*/
+        addProductDetailRoute(navController,viewModel)
         addCartRoute(navController,viewModel)
         addFavouritesRoute(navController,viewModel)
     }
@@ -72,8 +73,8 @@ private fun NavGraphBuilder.addHomeRoute(
         startDestination = LeafScreen.Home.route
     ) {
         composable(LeafScreen.Home.route) {
-            viewModel.setTitleBar("Home")
-            viewModel.setShowTopBar(true)
+            viewModel.setTitleBar("")
+            viewModel.setShowTopBar(false)
             viewModel.setShowBottomBar(true)
             HomeScreenScaffold(navController)
         }
@@ -143,7 +144,7 @@ private fun NavGraphBuilder.addSettingsRoute(
     ) {
         composable(LeafScreen.Setting.route) {
             viewModel.setTitleBar("Settings")
-            viewModel.setShowTopBar(true)
+            viewModel.setShowTopBar(false)
             viewModel.setShowBottomBar(false)
             SettingsScreen(navController)
         }
@@ -192,7 +193,7 @@ private fun NavGraphBuilder.addAccountRoute(viewModel: MainActivityViewModel,nav
     ) {
         composable(LeafScreen.Account.route) {
             viewModel.setTitleBar("Account")
-            viewModel.setShowTopBar(true)
+            viewModel.setShowTopBar(false)
             viewModel.setShowBottomBar(false)
             AccountScreen(navController)
         }
@@ -200,16 +201,16 @@ private fun NavGraphBuilder.addAccountRoute(viewModel: MainActivityViewModel,nav
 }
 
 
-private fun NavGraphBuilder.addNotificationAccountRoute(viewModel: MainActivityViewModel) {
+private fun NavGraphBuilder.addNotificationAccountRoute(viewModel: MainActivityViewModel,navController: NavController) {
     navigation(
         route = RootScreen.NotificationAccount.route,
         startDestination = LeafScreen.NotificationAccount.route
     ) {
         composable(LeafScreen.NotificationAccount.route) {
             viewModel.setTitleBar("")
-            viewModel.setShowTopBar(true)
+            viewModel.setShowTopBar(false)
             viewModel.setShowBottomBar(false)
-            NotificationAccountScreen()
+            NotificationAccountScreen(navController)
         }
     }
 }
@@ -222,7 +223,7 @@ private fun NavGraphBuilder.addNotificationRoute(viewModel: MainActivityViewMode
     ) {
         composable(LeafScreen.Notification.route) {
             viewModel.setTitleBar("")
-            viewModel.setShowTopBar(true)
+            viewModel.setShowTopBar(false)
             viewModel.setShowBottomBar(false)
             NotificationScreen()
         }
@@ -236,7 +237,7 @@ private fun NavGraphBuilder.addPaymentMethodRoute(viewModel: MainActivityViewMod
     ) {
         composable(LeafScreen.PaymentMethod.route) {
             viewModel.setTitleBar("Payment Method")
-            viewModel.setShowTopBar(true)
+            viewModel.setShowTopBar(false)
             viewModel.setShowBottomBar(false)
             PaymentMethodScreen()
         }
@@ -250,7 +251,7 @@ private fun NavGraphBuilder.addPrivacyRoute(viewModel: MainActivityViewModel) {
     ) {
         composable(LeafScreen.Privacy.route) {
             viewModel.setTitleBar("Privacy")
-            viewModel.setShowTopBar(true)
+            viewModel.setShowTopBar(false)
             viewModel.setShowBottomBar(false)
             PrivacyScreen()
         }
@@ -264,7 +265,7 @@ private fun NavGraphBuilder.addSecurityRoute(navController: NavController,viewMo
     ) {
         composable(LeafScreen.Security.route) {
             viewModel.setTitleBar("Security")
-            viewModel.setShowTopBar(true)
+            viewModel.setShowTopBar(false)
             viewModel.setShowBottomBar(false)
             SecurityScreen(navController)
         }
@@ -280,7 +281,7 @@ private fun NavGraphBuilder.addFaqRoute(viewModel: MainActivityViewModel) {
     ) {
         composable(LeafScreen.FAQ.route) {
             viewModel.setTitleBar("FAQ")
-            viewModel.setShowTopBar(true)
+            viewModel.setShowTopBar(false)
             viewModel.setShowBottomBar(false)
             FAQScreen()
         }
@@ -297,7 +298,7 @@ private fun NavGraphBuilder.addChangePassword(viewModel: MainActivityViewModel) 
     ) {
         composable(LeafScreen.ChangePassword.route) {
             viewModel.setTitleBar("Change Password")
-            viewModel.setShowTopBar(true)
+            viewModel.setShowTopBar(false)
             viewModel.setShowBottomBar(false)
             ChangeCredentialScreen(
                 title = "Change Password",
@@ -315,7 +316,7 @@ private fun NavGraphBuilder.addChangeEmail(viewModel: MainActivityViewModel) {
     ) {
         composable(LeafScreen.ChangeEmail.route) {
             viewModel.setTitleBar("Change Email")
-            viewModel.setShowTopBar(true)
+            viewModel.setShowTopBar(false)
             viewModel.setShowBottomBar(false)
             ChangeCredentialScreen(
                 title = "Change Email",
@@ -334,7 +335,7 @@ private fun NavGraphBuilder.addSearchRoute(navController: NavController, viewMod
     ) {
         composable(LeafScreen.Search.route) {
             viewModel.setTitleBar("")
-            viewModel.setShowTopBar(true)
+            viewModel.setShowTopBar(false)
             viewModel.setShowBottomBar(false)
 
             SearchScreen(
@@ -359,14 +360,14 @@ private fun NavGraphBuilder.addBestSellerRoute(
     ) {
         composable(LeafScreen.BestSeller.route) {
             viewModel.setTitleBar("")
-            viewModel.setShowTopBar(true)
+            viewModel.setShowTopBar(false)
             viewModel.setShowBottomBar(false)
 
             BestSellerScreen(navController)
         }
     }
 }
-/*private fun NavGraphBuilder.addProductDetailRoute(
+private fun NavGraphBuilder.addProductDetailRoute(
     navController: NavController,
     viewModel: MainActivityViewModel
 ) {
@@ -376,12 +377,13 @@ private fun NavGraphBuilder.addBestSellerRoute(
     ) {
         composable(LeafScreen.ProductDetail.route) {
             viewModel.setTitleBar("Product Detail")
-            viewModel.setShowTopBar(true)
+            viewModel.setShowTopBar(false)
             viewModel.setShowBottomBar(false)
-            ProductDetailScreen(navController,)
+            ProductDetailScreen(navController)
+
         }
     }
-}*/
+}
 
 private fun NavGraphBuilder.addCartRoute(
     navController: NavController,
@@ -393,13 +395,12 @@ private fun NavGraphBuilder.addCartRoute(
     ) {
         composable(LeafScreen.Cart.route) {
             viewModel.setTitleBar("")
-            viewModel.setShowTopBar(true)
-            viewModel.setShowBottomBar(true)
+            viewModel.setShowTopBar(false)
+            viewModel.setShowBottomBar(false)
 
             CartScreen(
-                products = mockProducts,
-                onCheckout = {  },
-                navController
+                onCheckout = { },
+                navController = navController
             )
         }
     }

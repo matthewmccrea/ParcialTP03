@@ -11,4 +11,19 @@ object RetrofitClient {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
         .create(AuthApi::class.java)
-}
+
+
+    val productApi: ProductApi = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+        .create(ProductApi::class.java)
+
+    val cartApi: CartApi = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+        .create(CartApi::class.java)
+
+    }
+

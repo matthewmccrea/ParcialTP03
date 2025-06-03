@@ -26,6 +26,7 @@ import ar.edu.ort.trabajopractico.R
 
 @Composable
 fun Banner() {
+    Spacer(modifier = Modifier.height(24.dp))
     Box(
         modifier = Modifier
             .fillMaxWidth()
