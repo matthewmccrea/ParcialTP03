@@ -4,6 +4,9 @@ package ar.edu.ort.trabajopractico.screens.profilepage
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -20,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import ar.edu.ort.trabajopractico.R
+import ar.edu.ort.trabajopractico.components.PrimaryButton
 import ar.edu.ort.trabajopractico.components.profilepage.SettingsItem
 import ar.edu.ort.trabajopractico.ui.theme.AppTypography
 
@@ -30,6 +34,28 @@ fun SettingsScreen(navController: NavController) {
             .fillMaxSize()
             .padding(horizontal = 24.dp, vertical = 16.dp)
     ) {
+        Spacer(modifier = Modifier.height(24.dp))
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(48.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "Settings Page",
+                fontWeight = FontWeight.Bold
+            )
+
+            IconButton(
+                onClick = { navController.popBackStack() },
+                modifier = Modifier
+                    .align(Alignment.CenterStart)
+                    .size(48.dp)
+                    .background(Color(0xFFF8F8F8), shape = CircleShape)
+            ) {
+                Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+            }
+        }
 
         Text("Account", style = AppTypography.sectionTitle)
         SettingsItem("Account", R.drawable.profile) {
@@ -61,16 +87,13 @@ fun SettingsScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.weight(1f))
 
-        Button(
-            onClick = { /* TODO: Logout */ },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(48.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.White),
-            border = BorderStroke(1.dp, Color(0xFF7140FD))
-        ) {
-            Text("Log Out", color = Color(0xFF7140FD), fontWeight = FontWeight.Bold)
-        }
+        PrimaryButton(
+            text = "Log Out",
+            onClick = {
+                navController.navigate("onboarding")
+            },
+            modifier = Modifier.fillMaxWidth()
+        )
     }
 }
 

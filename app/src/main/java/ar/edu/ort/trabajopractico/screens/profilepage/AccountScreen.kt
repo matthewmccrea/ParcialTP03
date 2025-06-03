@@ -15,10 +15,13 @@ import ar.edu.ort.trabajopractico.components.PrimaryButton
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import ar.edu.ort.trabajopractico.ui.theme.AppTypography
 import ar.edu.ort.trabajopractico.components.AppTextField
@@ -36,6 +39,28 @@ fun AccountScreen(navController: NavController) {
             .padding(horizontal = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Spacer(modifier = Modifier.height(24.dp))
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(48.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "Account",
+                fontWeight = FontWeight.Bold
+            )
+
+            IconButton(
+                onClick = { navController.popBackStack() },
+                modifier = Modifier
+                    .align(Alignment.CenterStart)
+                    .size(48.dp)
+                    .background(Color(0xFFF8F8F8), shape = CircleShape)
+            ) {
+                Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+            }
+        }
         Box(modifier = Modifier.fillMaxWidth()) {
             HeaderSection(
                 isSeller = false,

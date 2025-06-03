@@ -20,7 +20,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import ar.edu.ort.trabajopractico.ui.theme.TrabajoPracticoTheme
 import ar.edu.ort.trabajopractico.components.BottomNavBar
-//import ar.edu.ort.trabajopractico.components.AppDrawer
 import kotlinx.coroutines.launch
 import androidx.compose.foundation.layout.systemBars
 

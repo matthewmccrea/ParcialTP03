@@ -4,7 +4,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -46,12 +48,14 @@ fun OnboardingScreen(navController: NavController) {
     var currentPage by remember { mutableStateOf(0) }
     val page = pages[currentPage]
 
+    val scrollState = rememberScrollState()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 24.dp, vertical = 48.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceBetween
+            .verticalScroll(scrollState)
+            .padding(horizontal = 24.dp, vertical = 24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -61,31 +65,27 @@ fun OnboardingScreen(navController: NavController) {
         ) {
             Text(
                 text = page.title,
-                fontSize = 48.sp,
+                fontSize = 36.sp,
                 fontWeight = FontWeight.ExtraBold,
-                textAlign = TextAlign.Start,
-                lineHeight = 38.sp,
-                style = MaterialTheme.typography.titleLarge
-
+                lineHeight = 40.sp
             )
 
-            Spacer(modifier = Modifier.height(37.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
             Image(
                 painter = painterResource(id = page.imageRes),
                 contentDescription = "Onboarding Illustration",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(280.dp)
+                    .height(250.dp)
             )
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
             Text(
                 text = page.description,
                 fontSize = 14.sp,
                 textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -108,6 +108,8 @@ fun OnboardingScreen(navController: NavController) {
             }
         }
 
+        Spacer(modifier = Modifier.height(32.dp))
+
         Button(
             onClick = { navController.navigate(LeafScreen.Login.route) },
             colors = ButtonDefaults.buttonColors(containerColor = PurpleButton),
@@ -118,24 +120,10 @@ fun OnboardingScreen(navController: NavController) {
         ) {
             Text("Get Started", fontSize = 16.sp)
         }
+
+        Spacer(modifier = Modifier.height(16.dp))
     }
+
 }
 
-@Composable
-fun Dot1(isSelected: Boolean, color: Color, onClick: () -> Unit) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .size(16.dp)
-            .clickable { onClick() }
-    ) {
-        Box(
-            modifier = Modifier
-                .size(if (isSelected) 10.dp else 8.dp)
-                .clip(RoundedCornerShape(50))
-                .background(
-                    color = if (isSelected) color else color.copy(alpha = 0.3f)
-                )
-        )
-    }
-}
+
