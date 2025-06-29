@@ -54,33 +54,32 @@ fun AppTrabajoPractico(
 //            drawerState = drawerState,
 //            navActions = navActions
 //        ) {
-            Scaffold(
-                topBar = {
-                    if (showTopBar) {
-                        TopBar(
-                            title = title,
-                            scope = scope,
-                            onMenuClick = { scope.launch { drawerState.open() } }
-                        )
-                    }
-                },
-                bottomBar = {
-                    if (showBottomBar) {
-                        BottomNavBar(navActions, viewModel)
-                    }
-                },
-                snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
-                containerColor = MaterialTheme.colorScheme.background,
-                contentWindowInsets = WindowInsets.systemBars,
-                modifier = Modifier.fillMaxSize()
+        Scaffold(
+            topBar = {
+                if (showTopBar) {
+                    TopBar(
+                        title = title,
+                        scope = scope,
+                        onMenuClick = { scope.launch { drawerState.open() } }
+                    )
+                }
+            },
+            bottomBar = {
+                if (showBottomBar) {
+                    BottomNavBar(navActions, viewModel)
+                }
+            },
+            snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
+            containerColor = MaterialTheme.colorScheme.background,
+            contentWindowInsets = WindowInsets.systemBars,
+            modifier = Modifier.fillMaxSize()
 
-            ) { innerPadding ->
-                MainRouteNavGraph(
-                    modifier = Modifier.padding(innerPadding),
-                    navController = navController,
-                    viewModel = viewModel
-                )
-            }
+        ) { innerPadding ->
+            MainRouteNavGraph(
+                modifier = Modifier.padding(innerPadding),
+                navController = navController,
+                viewModel = viewModel
+            )
         }
     }
-
+}

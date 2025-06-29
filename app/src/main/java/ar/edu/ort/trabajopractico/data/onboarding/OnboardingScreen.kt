@@ -1,4 +1,4 @@
-package ar.edu.ort.trabajopractico.screens.onboarding
+package ar.edu.ort.trabajopractico.data.onboarding
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

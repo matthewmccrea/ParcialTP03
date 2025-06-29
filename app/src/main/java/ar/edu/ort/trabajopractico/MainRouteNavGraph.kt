@@ -20,7 +20,7 @@ import ar.edu.ort.trabajopractico.screens.homepage.ProductDetailScreen
 import ar.edu.ort.trabajopractico.screens.homepage.SearchScreen
 import ar.edu.ort.trabajopractico.screens.login.LoginScreen
 import ar.edu.ort.trabajopractico.screens.login.ResetPasswordScreen
-import ar.edu.ort.trabajopractico.screens.onboarding.OnboardingScreen
+import ar.edu.ort.trabajopractico.data.onboarding.OnboardingScreen
 import ar.edu.ort.trabajopractico.screens.paymentmethodscreen.PaymentMethodScreen
 import ar.edu.ort.trabajopractico.screens.profilepage.ProfileScreen
 import ar.edu.ort.trabajopractico.screens.profilepage.SettingsScreen
@@ -161,7 +161,7 @@ private fun NavGraphBuilder.addCreateAccountRoute(
         composable(LeafScreen.CreateAccount.route) {
             viewModel.setTitleBar("")
             viewModel.setShowTopBar(false)
-            viewModel.setShowBottomBar(true)
+            viewModel.setShowBottomBar(false)
             CreateAccountScreen(navController)
         }
     }

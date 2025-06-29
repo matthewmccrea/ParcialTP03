@@ -3,7 +3,9 @@ package ar.edu.ort.trabajopractico.screens.login
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Info
@@ -60,9 +62,11 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewMo
             SnackbarHost(hostState = snackBarHostState)
         }
     ) { padding ->
+        val scrollState = rememberScrollState()
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .verticalScroll(scrollState)
                 .padding(horizontal = 24.dp)
                 .padding(padding),
             verticalArrangement = Arrangement.Center,

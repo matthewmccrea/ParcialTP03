@@ -35,17 +35,20 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import ar.edu.ort.trabajopractico.R
 import ar.edu.ort.trabajopractico.components.PrimaryButton
-import ar.edu.ort.trabajopractico.components.QuantitySelector
-import ar.edu.ort.trabajopractico.data.Product
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+
 
 @Composable
 fun ProductDetailScreen(
     navController: NavController,
 ) {
+    val scrollState = rememberScrollState()
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
+            .verticalScroll(scrollState)
             .padding(horizontal = 16.dp)
     ) {
         Spacer(Modifier.height(24.dp))

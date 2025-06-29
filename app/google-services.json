@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "357469291503",
+    "project_id": "proyecto-final-29f8b",
+    "storage_bucket": "proyecto-final-29f8b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:357469291503:android:6ba4e591d5492ee6822c1a",
+        "android_client_info": {
+          "package_name": "ar.edu.ort.trabajopractico"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRSLJBLcLspYGSVsxGafJ9OrCUrG-pjec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

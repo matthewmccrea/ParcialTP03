@@ -4,12 +4,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ar.edu.ort.trabajopractico.data.LoginRequest
 import ar.edu.ort.trabajopractico.data.api.RetrofitClient
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
+
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     // Estado público solo lectura
     private val _isLoading = MutableStateFlow(false)
@@ -19,27 +22,21 @@ class LoginViewModel : ViewModel() {
     private val _loginResult = MutableStateFlow<Boolean?>(null)
     val loginResult: StateFlow<Boolean?> get() = _loginResult
 
-    fun login(username: String, password: String) {
+    fun login(email: String, password: String) {
         viewModelScope.launch {
             _isLoading.value = true
 
-            try {
-                val response = RetrofitClient.authApi.login(LoginRequest(username, password))
-
-                if (response.isSuccessful) {
-                    val user = response.body()
-                    _loginResult.value = true
-                } else {
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    _isLoading.value = false
+                    _loginResult.value = task.isSuccessful
+                }
+                .addOnFailureListener {
+                    _isLoading.value = false
                     _loginResult.value = false
                 }
-
-            } catch (e: Exception) {
-                e.printStackTrace()
-                _loginResult.value = false
-            } finally {
-                _isLoading.value = false
-            }
         }
-    }
 
+
+    }
 }
