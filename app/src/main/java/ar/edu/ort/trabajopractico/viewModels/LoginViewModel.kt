@@ -1,17 +1,16 @@
 package ar.edu.ort.trabajopractico.viewModels
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ar.edu.ort.trabajopractico.data.LoginRequest
-import ar.edu.ort.trabajopractico.data.api.RetrofitClient
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
-
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     // Estado público solo lectura
@@ -36,7 +35,5 @@ class LoginViewModel : ViewModel() {
                     _loginResult.value = false
                 }
         }
-
-
     }
 }

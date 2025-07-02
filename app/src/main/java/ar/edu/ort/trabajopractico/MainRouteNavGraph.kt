@@ -18,9 +18,9 @@ import ar.edu.ort.trabajopractico.screens.homepage.HomeScreenScaffold
 import ar.edu.ort.trabajopractico.screens.homepage.NotificationAccountScreen
 import ar.edu.ort.trabajopractico.screens.homepage.ProductDetailScreen
 import ar.edu.ort.trabajopractico.screens.homepage.SearchScreen
-import ar.edu.ort.trabajopractico.screens.login.LoginScreen
 import ar.edu.ort.trabajopractico.screens.login.ResetPasswordScreen
 import ar.edu.ort.trabajopractico.data.onboarding.OnboardingScreen
+import ar.edu.ort.trabajopractico.screens.login.LoginScreen
 import ar.edu.ort.trabajopractico.screens.paymentmethodscreen.PaymentMethodScreen
 import ar.edu.ort.trabajopractico.screens.profilepage.ProfileScreen
 import ar.edu.ort.trabajopractico.screens.profilepage.SettingsScreen

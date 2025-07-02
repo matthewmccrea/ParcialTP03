@@ -1,5 +1,6 @@
 package ar.edu.ort.trabajopractico.screens.login
 
+import ForgotPasswordViewModel
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -10,13 +11,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import ar.edu.ort.trabajopractico.navigation.LeafScreen
 
 @Composable
-fun ForgotPasswordEmailScreen(navController: NavController) {
-    var email by remember { mutableStateOf("") }
-    val isEmailValid = email.isNotBlank() && "@" in email
+fun ForgotPasswordEmailScreen(navController: NavController,
+                              viewModel: ForgotPasswordViewModel = viewModel())
+{
+    var email by viewModel.email
+    val isEmailValid = viewModel.isEmailValid
 
     Column(
         modifier = Modifier
@@ -39,7 +43,7 @@ fun ForgotPasswordEmailScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(24.dp))
             OutlinedTextField(
                 value = email,
-                onValueChange = { email = it },
+                onValueChange = { viewModel.email.value = it },
                 label = { Text("Email") },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,

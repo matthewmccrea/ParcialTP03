@@ -1,5 +1,6 @@
 package ar.edu.ort.trabajopractico.screens.login
 
+import CreateAccountViewModel
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
@@ -16,18 +17,18 @@ import androidx.navigation.NavHostController
 
 
 @Composable
-fun CreateAccountScreen(navController: NavHostController) {
-    var fullName by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+fun CreateAccountScreen(navController: NavHostController,
+                        viewModel: CreateAccountViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
+    val fullName by viewModel.fullName
+    val email by viewModel.email
+    val password by viewModel.password
+    val acceptedTerms by viewModel.acceptedTerms
 
-    var fullNameError by remember { mutableStateOf(false) }
-    var emailError by remember { mutableStateOf(false) }
-    var passwordError by remember { mutableStateOf(false) }
-    var acceptedTerms by remember { mutableStateOf(false) }
+    val fullNameError by viewModel.fullNameError
+    val emailError by viewModel.emailError
+    val passwordError by viewModel.passwordError
 
-    val allFieldsValid =
-        fullName.isNotBlank() && email.isNotBlank() && password.isNotBlank() && acceptedTerms
+    val allFieldsValid = viewModel.allFieldsValid
 
     Column(
         modifier = Modifier
@@ -54,8 +55,8 @@ fun CreateAccountScreen(navController: NavHostController) {
         CustomTextField(
             value = fullName,
             onValueChange = {
-                fullName = it
-                fullNameError = it.isBlank()
+                viewModel.fullName.value = it
+                viewModel.fullNameError.value = it.isBlank()
             },
             label = "Full Name",
             isError = fullNameError
@@ -66,8 +67,8 @@ fun CreateAccountScreen(navController: NavHostController) {
         CustomTextField(
             value = email,
             onValueChange = {
-                email = it
-                emailError = it.isBlank()
+                viewModel.email.value = it
+                viewModel.emailError.value = it.isBlank()
             },
             label = "Email",
             keyboardType = KeyboardType.Email,
@@ -79,8 +80,8 @@ fun CreateAccountScreen(navController: NavHostController) {
         CustomTextField(
             value = password,
             onValueChange = {
-                password = it
-                passwordError = it.isBlank()
+                viewModel.password.value = it
+                viewModel.passwordError.value = it.isBlank()
             },
             label = "Password",
             keyboardType = KeyboardType.Password,
@@ -101,7 +102,7 @@ fun CreateAccountScreen(navController: NavHostController) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Checkbox(
                 checked = acceptedTerms,
-                onCheckedChange = { acceptedTerms = it },
+                onCheckedChange = { viewModel.acceptedTerms.value = it },
                 colors = CheckboxDefaults.colors(checkedColor = Color(0xFF8A2BE2))
             )
             Text(

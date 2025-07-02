@@ -1,5 +1,6 @@
 package ar.edu.ort.trabajopractico.screens.login
 
+import ResetPasswordViewModel
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -11,16 +12,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun ResetPasswordScreen(navController: NavHostController) {
-    var newPassword by remember { mutableStateOf("") }
-    var confirmPassword by remember { mutableStateOf("") }
+fun ResetPasswordScreen(navController: NavHostController, viewModel: ResetPasswordViewModel = viewModel()) {
+    var newPassword by viewModel.newPassword
+    var confirmPassword by viewModel.confirmPassword
 
-    val isPasswordValid = newPassword.length >= 6
-    val doPasswordsMatch = newPassword == confirmPassword
-    val isFormValid = isPasswordValid && doPasswordsMatch
+    val isPasswordValid = viewModel.isPasswordValid
+    val doPasswordsMatch = viewModel.newPassword == viewModel.confirmPassword
+    val isFormValid = viewModel.isPasswordValid && viewModel.doPasswordsMatch
 
     Column(
         modifier = Modifier
@@ -45,7 +46,7 @@ fun ResetPasswordScreen(navController: NavHostController) {
             // New Password
             OutlinedTextField(
                 value = newPassword,
-                onValueChange = { newPassword = it },
+                onValueChange = { viewModel.newPassword.value = it },
                 label = { Text("New Password") },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
