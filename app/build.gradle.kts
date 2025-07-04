@@ -74,6 +74,7 @@ dependencies {
     implementation(libs.androidx.ui.text.google.fonts)
     implementation(libs.androidx.navigation.runtime.android)
     implementation(libs.firebase.auth.ktx)
+    implementation(libs.firebase.firestore.ktx)
     kapt(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
 

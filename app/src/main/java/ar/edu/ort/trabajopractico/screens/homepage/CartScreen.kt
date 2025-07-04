@@ -1,4 +1,5 @@
 package ar.edu.ort.trabajopractico.screens.homepage
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -38,6 +39,10 @@ import ar.edu.ort.trabajopractico.components.TopBar
 import ar.edu.ort.trabajopractico.components.TopBarLocation
 import ar.edu.ort.trabajopractico.data.Product
 import ar.edu.ort.trabajopractico.viewmodels.CartViewModel
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.auth.FirebaseAuth
+
 
 @Composable
 fun CartScreen(
@@ -144,7 +149,38 @@ fun CartScreen(
 
                         PrimaryButton(
                             text = "Checkout",
-                            onClick = onCheckout,
+                            onClick = {
+                                val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return@PrimaryButton
+                                val db = FirebaseFirestore.getInstance()
+
+                                val cartItems = cartProducts.map {
+                                    hashMapOf(
+                                        "id" to it.id,
+                                        "title" to it.title,
+                                        "price" to it.price,
+                                        "description" to "",
+                                        "imageRes" to it.imageRes,
+                                        "quantity" to it.quantity
+                                    )
+                                }
+
+                                val cart = hashMapOf(
+                                    "userId" to userId,
+                                    "total" to discountedTotal,
+                                    "timestamp" to FieldValue.serverTimestamp(),
+                                    "items" to cartItems
+                                )
+
+                                db.collection("carts")
+                                    .add(cart)
+                                    .addOnSuccessListener {
+                                        Log.d("Firestore", "Carrito real guardado correctamente.")
+                                    }
+                                    .addOnFailureListener { e ->
+                                        Log.w("Firestore", "Error al guardar carrito", e)
+                                    }
+                                navController.navigate("onboarding")
+                            },
                             modifier = Modifier.fillMaxWidth()
                         )
                     }
