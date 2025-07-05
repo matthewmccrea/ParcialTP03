@@ -18,9 +18,7 @@ import ar.edu.ort.trabajopractico.ui.theme.AppTypography
 @Composable
 fun CardDetailsForm(viewModel: PaymentViewModel) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-
+        modifier = Modifier.fillMaxSize()
     ) {
         Text(
             text = "Add New Payment",
@@ -30,47 +28,37 @@ fun CardDetailsForm(viewModel: PaymentViewModel) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        AppTextField(
-            value = viewModel.cardNumber,
-            onValueChange = { viewModel.cardNumber = it },
-            placeholder = "Card Number",
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 12.dp)
+        val fieldValues = listOf(
+            viewModel.cardNumber,
+            viewModel.cardName,
+            viewModel.expiry,
+            viewModel.cvv
         )
 
-        AppTextField(
-            value = viewModel.cardName,
-            onValueChange = { viewModel.cardName = it },
-            placeholder = "Card Name",
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 12.dp)
+        val fieldSetters = listOf<
+                    (String) -> Unit>(
+            { viewModel.cardNumber = it },
+            { viewModel.cardName = it },
+            { viewModel.expiry = it },
+            { viewModel.cvv = it }
         )
 
-        AppTextField(
-            value = viewModel.expiry,
-            onValueChange = { viewModel.expiry = it },
-            placeholder = "Expired",
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 12.dp)
-        )
-
-        AppTextField(
-            value = viewModel.cvv,
-            onValueChange = { viewModel.cvv = it },
-            placeholder = "CVV",
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 12.dp)
-        )
+        viewModel.cardPlaceholders.forEachIndexed { index, placeholder ->
+            AppTextField(
+                value = fieldValues[index],
+                onValueChange = fieldSetters[index],
+                placeholder = placeholder,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 12.dp)
+            )
+        }
 
         Spacer(modifier = Modifier.weight(1f))
 
         PrimaryButton(
             text = "Save",
-            onClick = {  },
+            onClick = { viewModel.submit() },
             modifier = Modifier.fillMaxWidth()
         )
     }

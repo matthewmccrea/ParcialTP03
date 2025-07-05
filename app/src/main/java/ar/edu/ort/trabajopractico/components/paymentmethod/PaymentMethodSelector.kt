@@ -21,9 +21,7 @@ fun PaymentMethodSelector(viewModel: PaymentViewModel) {
     val selectedOption = viewModel.selectedOption
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-
+        modifier = Modifier.fillMaxSize()
     ) {
         Text(
             text = "Choose your Payment Method",
@@ -33,21 +31,16 @@ fun PaymentMethodSelector(viewModel: PaymentViewModel) {
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        SelectablePaymentOption(
-            title = "Paypal",
-            selected = selectedOption == "Paypal",
-            onSelect = { viewModel.selectOption("Paypal") }
-        )
+        viewModel.paymentOptions.forEach { option ->
+            SelectablePaymentOption(
+                title = option,
+                selected = selectedOption == option,
+                onSelect = { viewModel.selectOption(option) }
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+        }
 
-        Spacer(modifier = Modifier.height(12.dp))
-
-        SelectablePaymentOption(
-            title = "Credit Card",
-            selected = selectedOption == "Credit Card",
-            onSelect = { viewModel.selectOption("Credit Card") }
-        )
-
-        Spacer(modifier = Modifier.weight(1f)) // <-- Empuja el botón hacia abajo
+        Spacer(modifier = Modifier.weight(1f))
 
         PrimaryButton(
             text = "Checkout",

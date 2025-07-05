@@ -6,7 +6,18 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 
 
+
 class PaymentViewModel : ViewModel() {
+
+    val paymentOptions = listOf("Paypal", "Credit Card")
+
+    val cardPlaceholders = listOf(
+        "Card Number",
+        "Card Name",
+        "Expired",
+        "CVV"
+    )
+
     var selectedOption by mutableStateOf("")
         private set
 
@@ -35,3 +46,4 @@ class PaymentViewModel : ViewModel() {
         cvv = ""
     }
 }
+

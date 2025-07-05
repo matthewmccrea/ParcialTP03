@@ -31,8 +31,15 @@ fun ChangeCredentialScreen(
     viewModel: CredentialViewModel = viewModel(),
     navController: NavController
 ) {
-    val isSubmitted = viewModel.isSubmitted
-    val inputs = remember { fields.map { mutableStateOf("") } }
+    LaunchedEffect(Unit) {
+        viewModel.configureScreen(
+            screenTitle = title,
+            buttonLabel = buttonText,
+            fieldPlaceholders = fields
+        )
+    }
+
+    val isSubmitted = viewModel.isSubmitted.value
 
     Column(
         modifier = Modifier
@@ -41,6 +48,7 @@ fun ChangeCredentialScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(24.dp))
+
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -48,7 +56,7 @@ fun ChangeCredentialScreen(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = title,
+                text = viewModel.title.value,
                 fontWeight = FontWeight.Bold
             )
 
@@ -63,24 +71,23 @@ fun ChangeCredentialScreen(
             }
         }
 
-
-        fields.forEachIndexed { index, label ->
+        viewModel.placeholders.forEachIndexed { index, placeholder ->
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 16.dp)
             ) {
                 Text(
-                    text = label,
+                    text = placeholder,
                     style = AppTypography.settingsItem,
                     modifier = Modifier.padding(bottom = 6.dp)
                 )
                 AppTextField(
-                    value = inputs[index].value,
-                    onValueChange = { inputs[index].value = it },
-                    placeholder = "Abdul",
-                    isPassword = label.contains("Password", ignoreCase = true),
-                    isError = isSubmitted && inputs[index].value.isBlank(),
+                    value = viewModel.fieldValues[index],
+                    onValueChange = { viewModel.updateField(index, it) },
+                    placeholder = placeholder,
+                    isPassword = placeholder.contains("Password", ignoreCase = true),
+                    isError = isSubmitted && viewModel.fieldValues[index].isBlank(),
                     errorMessage = "Required field",
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -90,11 +97,12 @@ fun ChangeCredentialScreen(
         Spacer(modifier = Modifier.weight(1f))
 
         PrimaryButton(
-            text = buttonText,
+            text = viewModel.buttonText.value,
             onClick = {
                 viewModel.submit()
-                val allFilled = inputs.all { it.value.isNotBlank() }
-
+                val allFilled = viewModel.fieldValues.all { it.isNotBlank() }
+                if (allFilled) {
+                }
             },
             modifier = Modifier.fillMaxWidth()
         )

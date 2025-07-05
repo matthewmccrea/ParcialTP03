@@ -179,7 +179,7 @@ fun CartScreen(
                                     .addOnFailureListener { e ->
                                         Log.w("Firestore", "Error al guardar carrito", e)
                                     }
-                                navController.navigate("onboarding")
+                                navController.navigate("home")
                             },
                             modifier = Modifier.fillMaxWidth()
                         )
